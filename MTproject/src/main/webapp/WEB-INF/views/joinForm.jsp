@@ -13,7 +13,6 @@
 <script src="resources/jsLib/juso.js"></script>
 
 
-
 <script>
 	
 	function idDupCheck() {

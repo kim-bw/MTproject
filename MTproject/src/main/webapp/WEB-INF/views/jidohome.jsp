@@ -188,7 +188,7 @@ $(function(){
 <div class="rside">
 <sec:authorize access="isAnonymous()">
 <div class="loginForm">
-<form action="security_check" method="post">
+<form action="/security_check" method="post">
 	<label for="id" class="badge badge-pill badge-success">아이디</label>
 	<input type="text" id="id" name="m_id" style="width: 100px"> <br>
 	<label for="password" class="badge badge-pill badge-success">비밀번호</label>

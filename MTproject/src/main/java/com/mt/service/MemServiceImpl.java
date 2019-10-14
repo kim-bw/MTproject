@@ -40,7 +40,7 @@ public class MemServiceImpl implements MemService, UserDetailsService {
 		
 		//1. username을 파라미터로 받아 같은 이름을 가진 고객정보를 리턴한다.
 		MemberVO mvo = securityFindName(userName);
-		
+		log.warn("mvo : "+mvo);
 		//해당 mvo가 null이면 null리턴. null이 아니면 제대로 찾았으므로 CustomUser 생성자에 넣어 UserDetail type객체를 만들어 리턴한다.
 		return mvo == null ? null : new CustomUser(mvo);
 	}

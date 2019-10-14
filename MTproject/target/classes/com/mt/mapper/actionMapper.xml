@@ -19,14 +19,9 @@
 		UNION
 		SELECT * FROM mt_5_place
 		UNION
-		SELECT * FROM mt_6_place
-		UNION
-		SELECT * FROM mt_7_place
-		UNION
-		SELECT * FROM mt_8_place) order by DBMS_RANDOM.RANDOM)
+		SELECT * FROM mt_6_place) order by DBMS_RANDOM.RANDOM)
 		<![CDATA[ WHERE ROWNUM < 10 ]]> 
  </select> 
-
 
 
 </mapper>
