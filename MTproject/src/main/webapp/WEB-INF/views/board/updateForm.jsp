@@ -9,7 +9,7 @@
 <body>
 
 <table>
-	<form action="updateBoard" method="get">
+	<form action="/board/updateBoard" method="get">
 	<tr>
 		<th>제목</th>
 		<th>내용</th>

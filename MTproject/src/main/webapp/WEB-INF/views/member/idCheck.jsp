@@ -27,7 +27,7 @@
 </head>
 <body>
 	<h3>ID 중복 확인</h3>
-	<form action="idcheck" method="get">
+	<form action="/member/idcheck" method="get">
 	User ID :
 	<input type="text" id="m_id" name="m_id" value="">
 	<input type="submit" value="확인하기" onclick="return idCheck()"><br>

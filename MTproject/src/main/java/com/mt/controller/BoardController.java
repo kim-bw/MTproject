@@ -28,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Log4j
 @Controller
+@RequestMapping("/board")
 public class BoardController {
 
 	@Autowired
@@ -42,12 +43,11 @@ public class BoardController {
 	public int result;
 
 //―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――	인증/로그인상태
-	@RequestMapping("/insertBoard")
-	public ModelAndView insertBoard(ModelAndView mv, BoardVO bvo,HttpServletRequest request) {
-		
+	@RequestMapping("/insert.do")
+	public ModelAndView insert(ModelAndView mv, BoardVO bvo,HttpServletRequest request) {
 		bvo.setB_id((String)request.getAttribute("USERID"));
 		
-		if (bs.insertBoard(bvo)) { 
+		if (bs.insert(bvo)) { 
 			mv.setViewName("result");
 			mv.addObject("msg","글 등록 성공");
 		} else { 
@@ -58,12 +58,12 @@ public class BoardController {
 }
 
 
-	@RequestMapping("deleteBoard")
-	public ModelAndView deleteBoard(ModelAndView mv, BoardVO bvo,HttpServletRequest request) {
+	@RequestMapping("/delete.do")
+	public ModelAndView delete(ModelAndView mv, BoardVO bvo,HttpServletRequest request) {
 		
 		bvo.setB_id((String)request.getAttribute("USERID"));
 		
-		if (bs.deleteBoard(bvo)) { 
+		if (bs.delete(bvo)) { 
 			mv.setViewName("result");
 			mv.addObject("msg","게시글이 삭제되었습니다.");
 		} else { 
@@ -74,7 +74,7 @@ public class BoardController {
 	}
 
 //―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――	
-	@RequestMapping("showUpdateBoardForm")
+	@RequestMapping("/showUpdateBoardForm")
 	public ModelAndView showUpdateBoardForm(ModelAndView mv, PageVO pvo) {
 		
 		//p_select(1~3)에 따라 쿼리문에 치환될 문자를 pvo에 셋팅
@@ -93,7 +93,7 @@ public class BoardController {
 	}
 	
 //―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――	
-	@RequestMapping("updateBoard")
+	@RequestMapping("/updateBoard")
 	public ModelAndView updateBoard(ModelAndView mv, BoardVO bvo) {
 		
 		//오류방지 : b_adrimage가 null이면 noimage 삽입해서 오류방지
@@ -115,7 +115,7 @@ public class BoardController {
 	}
 
 //―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――	
-	@RequestMapping("selectBoard")
+	@RequestMapping("/selectBoard")
 	public ModelAndView selectBoard(ModelAndView mv,PageVO pvo,StyleVO svo) {
 		
 		List<ResultVO> list = new ArrayList<ResultVO>();
@@ -144,8 +144,7 @@ System.out.println(pvo);
 	}
 
 //―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-	@RequestMapping("showDetailBoard")
-
+	@RequestMapping("/showDetailBoard")
 	public ModelAndView detailBoard(ModelAndView mv,PageVO pvo,HttpServletResponse response) {
 		
 		response.setContentType("text/html;charset=UTF-8");
@@ -182,27 +181,5 @@ System.out.println(pvo);
 	}
 	
 //―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-	@RequestMapping("showMyBoard")
-	public ModelAndView showMyBoard(ModelAndView mv, PageVO pvo,HttpServletRequest request) {
-		
-		List<BoardVO> myList = new ArrayList<BoardVO>();
-
-		pvo.setP_id((String)request.getAttribute("USERID"));
-		
-		myList = bs.showMyBoard(pvo);
-		
-		if(myList!=null) {
-			mv.addObject("myList", myList);
-			mv.setViewName("board/myBoard");
-		}else {
-			mv.addObject("msg", "내글보기 실패");
-			mv.setViewName("result");
-		}
-		return mv;
-	}
-		
-//――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 내 정보 페이지 보기
-
-		
 
 }

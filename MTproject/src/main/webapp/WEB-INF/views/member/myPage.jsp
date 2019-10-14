@@ -8,7 +8,7 @@
 <title>mypage</title>
 </head>
 <body>
-<a href="showDetailMember">my info</a><br>
+<a href="/member/showDetailMember">my info</a><br>
 <a href="test-showMyMission">my mission</a><br>
 <a href="test-showMyStatus">my status</a><br>
 나의 활동 free board<br>
@@ -24,7 +24,7 @@
 	<tr>
 		<td>${mm.b_seq}</td>
 		<td>${mm.b_id}</td>
-		<td><a href = "showDetailBoard?p_city=${mm.b_city}&p_select=${mm.b_select}&p_seq=${mm.b_seq}&p_curpage=1">${mm.b_title}</a></td>
+		<td><a href = "/board/showDetailBoard?p_city=${mm.b_city}&p_select=${mm.b_select}&p_seq=${mm.b_seq}&p_curpage=1">${mm.b_title}</a></td>
 		<td>${mm.b_date}</td>
 		<td>${mm.b_cnt}</td>
 	</tr>

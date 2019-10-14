@@ -24,9 +24,9 @@
 <div class="areaimage">
 	<img src="${svo.s_image01}" class="areaimage">
 	${svo.s_name} 페이지 입니다.<br>
-	자유게시판 -><a href="selectBoard?p_city=${svo.s_city}&p_select=1&p_curpage=1">보기</a><br>
-	맛집 -><a href="selectBoard?p_city=${svo.s_city}&p_select=2&p_curpage=1">보기</a><br>
-	여행지 -><a href="selectBoard?p_city=${svo.s_city}&p_select=3&p_curpage=1">보기</a><br>
+	자유게시판 -><a href="/board/selectBoard?p_city=${svo.s_city}&p_select=1&p_curpage=1">보기</a><br>
+	맛집 -><a href="/board/selectBoard?p_city=${svo.s_city}&p_select=2&p_curpage=1">보기</a><br>
+	여행지 -><a href="/board/selectBoard?p_city=${svo.s_city}&p_select=3&p_curpage=1">보기</a><br>
 </div>
 </body>
 </html>

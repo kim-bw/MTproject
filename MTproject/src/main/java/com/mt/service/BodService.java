@@ -15,9 +15,9 @@ import com.mt.domain.StyleVO;
 
 public interface BodService {
 
-	public boolean insertBoard(BoardVO bvo);
+	public boolean insert(BoardVO bvo);
 
-	public boolean deleteBoard(BoardVO vo);
+	public boolean delete(BoardVO bvo);
 
 	public boolean updateBoard(BoardVO vo);
 

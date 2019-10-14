@@ -80,7 +80,7 @@
 	 	
 		$.ajax({
 			type: "Post",
-			url : "/joinMember",
+			url : "/member/joinMember",
 			data : formData,
 			contentType : false,
 			processData : false,

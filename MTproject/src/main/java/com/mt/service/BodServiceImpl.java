@@ -23,12 +23,12 @@ public class BodServiceImpl implements BodService {
 	private static final String namespace = "com.mt.service.BodServiceImpl.";
 	
 	@Override
-	public boolean insertBoard(BoardVO bvo) {
+	public boolean insert(BoardVO bvo) {
 		return sqlSession.insert(namespace+"insert",bvo)==1;
 	}
 	
 	@Override
-	public boolean deleteBoard(BoardVO bvo) {
+	public boolean delete(BoardVO bvo) {
 		return sqlSession.delete(namespace+"bDelete",bvo)==1;
 	}
 	

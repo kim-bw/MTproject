@@ -7,7 +7,7 @@
 <title>게시판 글쓰기</title>
 </head>
 <body>
-<form action="insertBoard" method="get">
+<form action="/board/insert.do" method="get">
 <input type="hidden" id="city" name="b_city" value="${pvo.p_city}"><br>
 <input type="text" id="title" name="b_title"><br>
 <input type="text" id="content" name="b_content"><br>

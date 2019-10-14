@@ -30,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Log4j
 @Controller
+@RequestMapping("/reply")
 public class ReplyController {
 	
 	@Setter(onMethod_ = { @Autowired, @Qualifier("reply")})
@@ -43,7 +44,7 @@ public class ReplyController {
 
 
 //――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― R1/댓글작성/김병우
-	@RequestMapping("/reply/insertReply")
+	@RequestMapping("/insertReply")
 	public ModelAndView insertReply(ModelAndView mv, ReplyVO rvo,HttpServletRequest request) {
 	
 		
@@ -94,7 +95,7 @@ public class ReplyController {
 	return mv;
 	}
 //――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― R2/댓글삭제/김병우
-	@RequestMapping("deleteReply")
+	@RequestMapping("/deleteReply")
 	public ModelAndView deleteReply(ModelAndView mv, ReplyVO rvo) {
 		System.out.println("딜리트 리플 들어옴");
 System.out.println(rvo);
@@ -112,7 +113,7 @@ System.out.println(rvo);
 		return mv;
 	}
 //―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――R3/댓글수정/김병우
-	@RequestMapping("updateReply")
+	@RequestMapping("/updateReply")
 	@ResponseBody
 	public ModelAndView updateReply(ModelAndView mv, ReplyVO rvo, HttpServletResponse response) {
 		response.setContentType("text/html;charset=UTF-8");

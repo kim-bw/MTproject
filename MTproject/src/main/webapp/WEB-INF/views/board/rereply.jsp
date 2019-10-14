@@ -19,7 +19,7 @@ var step = ${rvo.r_step};
 </head>
 <body>
 
-<form action="insertReply" method="post">
+<form action="/reply/insertReply" method="post">
 <input type="text" id="content">
 <input type="button" id="submit">
 </form>

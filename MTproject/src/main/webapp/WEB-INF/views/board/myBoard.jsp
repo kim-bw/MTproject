@@ -48,7 +48,7 @@
 <h3>댓글이 없습니다.</h3><br>
 </c:if>
 
-<form action="insertReply" method="get">
+<form action="/reply/insertReply" method="get">
 	<input type="text" name="r_content">
 	<input type="hidden" id="city" name="r_city" value="${Rvo.f_city}">
 	<input type="hidden" id="select" name="r_select" value="${Rvo.f_select}">

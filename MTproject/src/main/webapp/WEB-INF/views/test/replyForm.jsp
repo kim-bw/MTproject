@@ -44,7 +44,7 @@
 									<input type="button" value="수정" onclick="goUpReplyForm('${rList.index}');">
 									<input type="button" value="삭제" onclick="deleteReply();">
 									<input type="button" id="seq" value="${rr.r_seq}">
-									<a href="deleteReply?r_seq=${rr.r_seq}&r_city=${rr.r_city}">삭제</a>
+									<a href="/reply/deleteReply?r_seq=${rr.r_seq}&r_city=${rr.r_city}">삭제</a>
 								</div>
 
 							</c:if>

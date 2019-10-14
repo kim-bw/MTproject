@@ -4,9 +4,9 @@ package com.mt.service;
 
 import com.mt.domain.MemberVO;
 
-public interface MemService {
+public interface MemService{
 
-	public MemberVO checkLogin(MemberVO vo);
+public MemberVO checkLogin(MemberVO vo);
 
 	public MemberVO showDetailMember(MemberVO vo);
 

@@ -2,7 +2,6 @@
 
 package com.mt.service;
 
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,14 +12,13 @@ import org.springframework.stereotype.Service;
 import com.mt.domain.CustomUser;
 import com.mt.domain.MemberVO;
 
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Log4j
 @Service("member")
-public class MemServiceImpl implements MemService, UserDetailsService {
+public class MemServiceImpl implements UserDetailsService, MemService{
 
 	private static final String namespace = "com.mt.service.MemServiceImpl.";
 

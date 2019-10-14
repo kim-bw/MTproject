@@ -379,7 +379,7 @@
 		<tr>
 			<td>${bl.b_city}</td>
 			<td>${bl.b_seq}</td>
-			<td><a href = "showDetailBoard?p_city=${bl.b_city}&p_select=${pvo.p_select}&p_seq=${bl.b_seq}&p_curpage=1">${bl.b_title}</a></td>
+			<td><a href = "/board/showDetailBoard?p_city=${bl.b_city}&p_select=${pvo.p_select}&p_seq=${bl.b_seq}&p_curpage=1">${bl.b_title}</a></td>
 			<td>${bl.b_id}</td>
 			<td>${bl.b_date}</td>
 			<td>${bl.b_content}</td>

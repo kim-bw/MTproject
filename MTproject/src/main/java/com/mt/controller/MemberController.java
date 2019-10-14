@@ -1,30 +1,21 @@
 package com.mt.controller;
 
 import java.io.File;
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mt.domain.MemberVO;
 import com.mt.service.MemService;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,32 +24,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Log4j
 @Controller
+@RequestMapping("/member")
 public class MemberController {
 
 	@Autowired
 	@Qualifier("member")
 	public MemService ms;
-
+	
 	int result;  //int 결과값을 위한 변수
 
 	HttpSession session; // session값을 위한 변수
-
-//――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― M0김병우
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
-
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-
-		return "home";
-	}
 
 //――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 비인증
 	@PostMapping("/joinMember") 
@@ -104,7 +79,7 @@ public class MemberController {
 	}
 
 //――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 인증/로그인상태/
-	@RequestMapping("showDetailMember")
+	@RequestMapping("/showDetailMember")
 	public ModelAndView showDetailMember(ModelAndView mv, MemberVO mvo,HttpServletRequest request) {
 
 		mvo.setM_id((String)request.getAttribute("USERID"));
@@ -122,9 +97,8 @@ public class MemberController {
 		return mv;
 	}
 //――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――	인증/로그인상태
+	@RequestMapping("/deleteMember")
 	public ModelAndView deleteMember(ModelAndView mv, MemberVO mvo,HttpServletRequest request) {
-
-		
 		
 		if (ms.deleteMember(mvo)) {
 			mv.setViewName("result");
@@ -138,7 +112,7 @@ public class MemberController {
 	}
 	
 //――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――	인증/로그인상태
-		@RequestMapping("updateMember") 
+		@RequestMapping("/updateMember") 
 		public ModelAndView updateMember(ModelAndView mv, MemberVO mvo) {
 			
 			log.info("정보수정시작 :"+mvo);

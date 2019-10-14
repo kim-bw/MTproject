@@ -30,7 +30,7 @@
 			<td>${bl.f_city}</td>
 			<td>${bl.f_seq}</td>
 			<td>${bl.f_select}</td>
-			<td><a href = "showDetailBoard?p_city=${bl.f_city}&p_select=${bl.f_select}&p_seq=${bl.f_seq}&p_curpage=1">${bl.f_name}</a></td>
+			<td><a href = "/board/showDetailBoard?p_city=${bl.f_city}&p_select=${bl.f_select}&p_seq=${bl.f_seq}&p_curpage=1">${bl.f_name}</a></td>
 			<td>${bl.f_address}</td>
 			<td>${bl.f_detailaddress}</td>
 			<td>${bl.f_areacode}</td>
@@ -50,7 +50,7 @@
 		</c:when>
 		
 		<c:otherwise>
-			<a href="selectBoard?p_curpage=${i}&p_select=${pvo.p_select}&p_city=${pvo.p_city}">${i}</a>&nbsp;
+			<a href="/board/selectBoard?p_curpage=${i}&p_select=${pvo.p_select}&p_city=${pvo.p_city}">${i}</a>&nbsp;
 		</c:otherwise>
 	</c:choose>
 </c:forEach>

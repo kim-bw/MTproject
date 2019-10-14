@@ -49,7 +49,7 @@ function getReplyList(){
 	
 	$.ajax({
 		type: "get",
-		url : "showDetailBoard",
+		url : "/board/showDetailBoard",
 		data : {
 			p_city:city,
 			p_seq:seq,
@@ -144,7 +144,7 @@ function UdateReply(r_seq){
 
 	$.ajax({
 		type: 'Post',
-		url : 'updateReply',
+		url : '/reply/updateReply',
 		data : {
 			r_content:content,
 			r_city:city,
@@ -167,7 +167,7 @@ function deleteReply(r_seq){
 	alert("r_city 은 =>"+$('#city').val());	
 	$.ajax({
 		type: 'Post',
-		url : 'deleteReply',
+		url : '/reply/deleteReply',
 		data : {
 			
 			r_city:$('#city').val(),

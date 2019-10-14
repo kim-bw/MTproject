@@ -31,10 +31,10 @@
 </table>
 <hr>
 <c:if test="${Rvo.b_id==USERID}">
-	<a href="deleteBoard?p_city=${p_city}&p_select=${p_select}&p_seq=${p_seq}">글 삭제</a>
+	<a href="/board/delete.do?p_city=${p_city}&p_select=${p_select}&p_seq=${p_seq}">글 삭제</a>
 </c:if>
 <c:if test="${Rvo.b_id==USERID}">
-	<a href="showUpdateBoardForm?p_city=${Rvo.b_city}&p_select=1&p_seq=${Rvo.b_seq}">글 수정</a>
+	<a href="/board/showUpdateBoardForm?p_city=${Rvo.b_city}&p_select=1&p_seq=${Rvo.b_seq}">글 수정</a>
 </c:if>
 <hr>
 <c:if test="${pvo.p_totrow==0}">

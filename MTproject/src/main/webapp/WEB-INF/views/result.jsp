@@ -12,7 +12,7 @@ result입니다.<br>
 
 msg 내용 : ${msg} <br>
 
-<a href="showDetailMember">상세정보보기[김병우]</a>
+<a href="/member/showDetailMember">상세정보보기[김병우]</a>
 
 </body>
 </html>

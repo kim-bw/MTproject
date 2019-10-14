@@ -9,7 +9,7 @@
 </head>
 <body>
 <h3>** Member Detail Spring MVC **</h3>
-<form action="updateMember" method="post" enctype="multipart/form-data">
+<form action="/member/updateMember" method="post" enctype="multipart/form-data">
 <table>
 <tr height="40"><td bgcolor="gray">I D</td>
 	<td><input type="text" name="id" value="${Apple.id}" readonly="readonly"></td></tr>

@@ -14,17 +14,9 @@
 	<bean id="MemServiceImpl" class="com.mt.service.MemServiceImpl"/>
 		
 		
-		
 	
-	<sec:http pattern="/test-goMission" security="none"></sec:http>
-	
-	<sec:http auto-config="true" >
-			<sec:intercept-url pattern="/security_check" access="isAnonymous()"/>
-			<sec:intercept-url pattern="/**" access="permitAll"/>
-			
-	
-	
-	
+	<sec:http use-expressions="true" >
+		<sec:intercept-url pattern="/**" access="permitAll"/>
 	
 	 <!-- 기본값 폼로그인 <sec:form-login/> -->
 		<sec:form-login 

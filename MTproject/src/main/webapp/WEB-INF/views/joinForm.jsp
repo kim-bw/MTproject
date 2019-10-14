@@ -22,7 +22,7 @@
 			return;
 		}
 
-		var url = 'idcheck?m_id=' + $('#m_id').val();
+		var url = '/member/idcheck?m_id=' + $('#m_id').val();
 		window.open(url, "_blank", "toolbar=no,menubar=yes,scrollbars=yes,resizable=yes,width=450,height=300");
 	}; //idDupCheck
 
