@@ -1,0 +1,194 @@
+@charset "utf-8";
+
+	*{
+		margin: 0px;
+		padding:0px;
+		/*위에 공간을 0으로;*/
+	}
+	body{width: 1500px; margin: 0 auto;}
+	
+
+	.header{
+		padding-top : 10px;
+		/*div class header 문구가 위에서 10px 만큼 간격*/
+		background-color : blue;
+		height:100px;
+		width: 1500px;
+		position: fixed;
+		/*position: fixed; => 스크롤 내려도 header 클래스 상부 고정*/
+		left : 50%;
+		/*왼쪽으로 50% 띄움. (기준점은 왼쪽 모서리 끝.)*/
+		margin-left: -750px;
+		/*왼쪽으로 -600px 이동(기준점이 왼쪽 끝 부분 이어서 width 값의 절반을 다시 이동*/
+		
+	}
+
+
+	.menubar{
+		bottom : 0px;
+		/*밑 부분에 간격 0;*/
+		padding-left: 450px;
+		/*menubar를 가운데로 */	
+		/*header 클래스 와이드 길이 1500 에서 750 이동 후 반대 로 menubar의 절반길이 300 이동 (기준점 문제) */	
+		position: absolute;
+	}
+	
+	.menubarleft{
+		position: fixed;
+	}	
+
+		
+	.menubar ul li{
+		list-style:none;
+		/*ul의 list 스타일 (가운데점) 표시 안하기.*/
+		background-color: yellow;
+		border: 1px solid;
+		float : left;
+		/*세로로 정렬된 li를 가로로 바꿈*/
+		width: 150px;
+		height: 50px;
+		line-height: 50px;
+		/*height와 같은 값을 주면 세로 가운대로 */
+		text-align: center;
+		/*가로 가운데로*/
+	}
+	
+	.menubarleft ul li{
+		list-style:none;
+		/*ul의 list 스타일 (가운데점) 표시 안하기.*/
+		background-color: yellow;
+		border: 1px solid;
+		width: 150px;
+		height: 50px;
+		line-height: 50px;
+		/*height와 같은 값을 주면 세로 가운대로 */
+		text-align: center;
+		/*가로 가운데로*/
+		position: relative;
+
+		
+	}
+	.menubarleft ul li ul{
+		position : absolute;
+		padding-left: 150px;
+		top : -1px;
+		display: none;
+		/*평상시에 안 보이게함*/	
+	}
+	.menubarleft ul li ul li a:hover{
+		/*color: red;*/
+		background-color: green;
+	}	
+	
+	.menubarleft ul li:hover> ul {
+		
+		display: block;
+		/*마오스 올리면 보이게함*/	
+	}
+	
+	.menubarleft ul li ul li a{
+		text-decoration: none;
+		/*a 태그에서 밑줄을 없애줌*/
+		color: black;
+		display: block;
+		/*block 모양으로 화면에 표시, 마우스 커서를 올렸을때 블럭 안에서 사용할수 있음*/
+	}
+		
+/*	
+	.menubar ul li:hover{
+		background-color: red;
+	}	
+		ul li 에 마오스 올리면 색 빨강
+*/	
+	
+	.menubar ul li ul li a{
+		text-decoration: none;
+		/*a 태그에서 밑줄을 없애줌*/
+		color: black;
+		display: block;
+		line-height: 50px;
+		/*block 모양으로 화면에 표시, 마우스 커서를 올렸을때 블럭 안에서 사용할수 있음*/
+	}
+
+
+
+	.menubar ul li ul li a:hover{
+		/*color: red;*/
+		background-color: green;
+	}
+	.menubar ul li ul{
+		display: none;
+		/*평상시에 안 보이게함*/	
+	}
+	.menubar ul li:hover> ul {
+		display: block;
+		/*마오스 올리면 보이게함*/	
+	}
+	
+	
+
+
+	
+	
+	.lside{
+		background-color: blue;
+		float : left;
+		left:0;
+		
+		width : 304px;
+		height: 100%;
+		margin-top : 110px; /*header 의 height 100px, padding-top 10px 값을 합해서 110 px*/
+						/*top,  margin-top 차이 구분이 안감*/			
+	}
+
+
+	.center{
+		background-color: red;
+		float : left;
+		width : 995px;
+		height: 100%;
+		margin-top : 110px; /*header 의 height 100px, padding-top 10px 값을 합해서 110 px*/
+						/*top,  margin-top 차이 구분이 안감*/			
+	}
+
+	.jidomap{
+		float: left;
+	}
+
+	.rside{
+		background-color: yellow;
+		float : left;
+	
+		width : 200px;
+		height: 100%;
+		margin-top : 110px; /*header 의 height 100px, padding-top 10px 값을 합해서 110 px*/
+						/*top,  margin-top 차이 구분이 안감*/			
+	}
+
+	.loginForm{
+		border :1px solid black;
+		background-color: pink;
+		width: 100px;
+		display: inline-block;
+		float : right;
+		margin-top: 0%;	/*margin-right 가 안먹는 이유는 ? ?
+						margin,   float 관계 확인  (float 적용하고 안하고 등)
+						position 으로 fixed 할경우 . float, margin을 지우고 
+							position : fixed; 	right : 0%; 으로 하면 됨.*/
+	}
+
+
+
+	.footer{
+		background-color: aqua;
+		position : fixed;
+		width : 100%;
+		height: 130px;
+		bottom: 0px; /*dheader 의 height 100px, padding-top 20px 값을 합해서 120 px*/
+						/*top,  margin-top 차이 구분이 안감*/
+	
+	}
+	
+	.jidomap{
+		background-color: pink;
+	}

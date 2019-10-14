@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+		
+		
+		
+		
+	<bean id="mtAccessDeniedHandler" class="com.mt.security.MTAccessDeniedHandler"/>
+	<bean id="mtLoginSuccessHandler" class="com.mt.security.MTLoginSuccessHandler"/>
+	<bean id="mtBcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	<bean id="MemServiceImpl" class="com.mt.service.MemServiceImpl"/>
+		
+		
+		
+		
+	<sec:http pattern="/reply/**" security="none"></sec:http>
+	<sec:http auto-config="true" >
+			<sec:intercept-url pattern="/security_check" access="permitAll"/>
+			<sec:intercept-url pattern="/**" access="permitAll"/>
+			
+	
+	
+	
+	
+	 <!-- 기본값 폼로그인 <sec:form-login/> -->
+		<sec:form-login 
+		login-page="/customLogin"
+		login-processing-url="/security_check"
+		password-parameter="m_password"
+		username-parameter="m_id"
+		authentication-success-handler-ref="mtLoginSuccessHandler"
+		/>
+		
+		
+		<!-- 에러 페이지만 설정할 경우 :  <sec:access-denied-handler error-page="/accessError"/> -->
+		<sec:access-denied-handler ref="mtAccessDeniedHandler"/>
+		<sec:logout logout-url="/customLogout" invalidate-session="true"/>
+ 	</sec:http>
+		
+		
+		
+	<sec:authentication-manager>
+		<!-- 해당 경로의 service클래스를 찾아 override된 메서드를 통해 username을 검색한다 -->
+		<sec:authentication-provider user-service-ref="MemServiceImpl">
+			 <sec:password-encoder ref="mtBcryptPasswordEncoder"/>
+		</sec:authentication-provider>
+	</sec:authentication-manager>	
+		
+		
+		
+</beans>

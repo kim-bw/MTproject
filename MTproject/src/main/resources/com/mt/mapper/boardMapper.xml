@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mt.service.BodServiceImpl">
+<insert id="insert">
+INSERT INTO	mt_${b_city}_board
+VALUES(
+	   #{b_city},(SELECT NVL(MAX(#{b_seq}),1)+1 FROM mt_${b_city}_board),
+	   #{p_title},#{b_id},sysdate,sysdate,#{b_content},#{b_cnt},
+	   #{b_adrimage}
+		)
+</insert>
+
+<delete id="delete">
+DELETE mt_${b_city}_free
+WHERE b_seq=#{b_seq}
+</delete>
+
+<update id="update">
+UPDATE mt_${b_city}_free 
+SET b_title=#{b_title}, 
+	b_updateDate=sysdate, b_content=#{b_content},b_adrimage=#{b_adrimage} 
+WHERE b_seq=#{b_seq}
+</update>
+
+<select id="bDetailBoard" resultType="com.mt.domain.ResultVO">
+SELECT * 
+FROM mt_${p_city}_${p_selectname}
+<if test="p_select==1"> WHERE b_seq=#{p_seq}</if>
+<if test="p_select==2"> WHERE f_seq=#{p_seq}</if>
+<if test="p_select==3"> WHERE l_seq=#{p_seq}</if>
+</select>
+
+<select id="bAllBoard" resultType="com.mt.domain.ResultVO">
+SELECT * 
+FROM(SELECT ROWNUM NUMROW,mt_${p_city}_${p_selectname}.* FROM mt_${p_city}_${p_selectname}
+<if test="p_select==1"> ORDER BY B_SEQ DESC) </if>
+<if test="p_select==2"> ORDER BY F_RANK ASC) </if>
+<if test="p_select==3"> ORDER BY L_RANK ASC) </if>
+ <![CDATA[ WHERE NUMROW >= #{p_end} AND NUMROW <= #{p_start}]]> 
+ </select>
+
+<select id="myTotalRow">
+SELECT count(*) FROM(
+		SELECT * FROM mt_1_board
+		UNION
+		SELECT * FROM mt_2_board
+		UNION
+		SELECT * FROM mt_3_board
+		UNION
+		SELECT * FROM mt_4_board
+		UNION
+		SELECT * FROM mt_5_board
+		UNION
+	SELECT * FROM mt_6_board) 
+WHERE b_id=#{p_id}
+</select>
+
+<select id="myBoard" resultType="com.mt.domain.BoardVO">
+SELECT * FROM
+	(SELECT * FROM
+		(SELECT * FROM mt_1_board
+		UNION
+		SELECT * FROM mt_2_board
+		UNION
+		SELECT * FROM mt_3_board
+		UNION
+		SELECT * FROM mt_4_board
+		UNION
+		SELECT * FROM mt_5_board
+		UNION
+		SELECT * FROM mt_6_board)
+	WHERE r_id=#{p_id} 
+ORDER BY r_select)
+</select>
+
+<select id="bTotalRow" resultType="int">
+SELECT COUNT(*)
+FROM mt_${p_city}_${p_selectname}
+</select>
+
+<select id="bSelectStyle" resultType="com.mt.domain.StyleVO">
+	select * from mt_style where s_city=#{p_city}
+</select>
+
+<update id="updateReply">
+	update mt_${r_city}_board
+	SET b_reply=b_reply+1
+	where b_seq=#{r_num}
+</update>
+
+<update id="test">
+	update mt_1_board 
+	set b_id='change' 
+	where b_seq=2
+</update>
+
+</mapper>

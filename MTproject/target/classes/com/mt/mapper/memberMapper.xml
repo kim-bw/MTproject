@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mt.service.MemServiceImpl">
+<!--―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 로그인/김병우 -->
+<!-- 로그인 --><!-- MemberVO -->
+<select id="mLogin" resultType="com.mt.domain.MemberVO">
+	SELECT * FROM mt_member 
+	WHERE m_id=#{m_id} AND m_password=#{m_password}
+</select>
+<!--―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 상세정보 /김병우-->
+<!-- 개인정보 보기 --><!-- MemberVO -->
+<select id="mDetail" resultType="com.mt.domain.MemberVO">
+	SELECT * FROM mt_member 
+	WHERE m_id=#{m_id}
+</select>
+<!--―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 회원가입 /김병우-->
+<!-- 회원가입하기 --><!-- MemberVO -->
+<insert id="mJoin">
+INSERT INTO mt_member 
+VALUES(#{m_id},#{m_password},#{m_name},#{m_tel},#{m_postcode},#{m_roadcode},#{m_detailaddress},
+#{m_birth},#{m_grade},#{m_level},#{m_suc},#{m_fail},#{m_adrimage},1)
+</insert>
+
+<!--―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 정보수정 /김병우-->
+<!-- 회원정보 수정하기 --><!-- MemberVO -->
+<update id="mUpdate">
+UPDATE mt_member 
+SET m_password=#{m_password},m_name=#{m_name},m_tel=#{m_tel},
+m_postcode=#{m_postcode},m_roadcode=#{m_roadcode},m_detailaddress=#{m_detailaddress},
+m_birth=#{m_birth},m_grade=#{m_grade},m_level=#{m_level},m_suc=#{m_suc},
+m_fail=#{m_fail},m_adrimage=#{m_adrimage},1
+WHERE m_id=#{m_id}
+</update>
+<!--―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 회원삭제/김병우-->
+<!-- 탈퇴하기 --><!-- MemberVO -->
+<delete id="mDelete">
+DELETE mt_member WHERE m_id=#{m_id}
+</delete>
+<!--―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 회원삭제/김병우-->
+
+<resultMap type="com.mt.domain.MemberVO" id="memberMap">
+	<id property="m_id" column="m_id"/>
+	<result property="m_id" column="m_id"/>
+	<result property="m_password" column="m_password"/>
+	<result property="m_name" column="m_name"/>
+	<result property="m_tel" column="m_tel"/>
+	<result property="m_postcode" column="m_postcode"/>
+	<result property="m_roadcode" column="m_roadcode"/>
+	<result property="m_detailaddress" column="m_detailaddress"/>
+	<result property="m_birth" column="m_birth"/>
+	<result property="m_grade" column="m_grade"/>
+	<result property="m_level" column="m_level"/>
+	<result property="m_suc" column="m_suc"/>
+	<result property="m_fail" column="m_fail"/>
+	<result property="m_adrimage" column="m_adrimage"/>
+	<result property="m_enabled" column="m_enabled"/>
+	<collection property="m_authList" resultMap="authMap"/>
+</resultMap>
+
+<resultMap type="com.mt.domain.AuthVO" id="authMap">
+	<result property="a_id" column="a_id"/>
+	<result property="a_auth" column="a_auth"/>
+</resultMap>
+
+<select id="securityFindName" resultMap="memberMap">
+
+SELECT
+m_id, m_password, m_name, m_tel,m_postcode,m_roadcode,m_detailaddress,m_birth,m_grade,m_level,
+m_suc,m_fail,m_adrimage,m_enabled,a_auth
+FROM
+mt_member mem
+LEFT OUTER JOIN mt_auth auth
+ON mem.m_id = auth.a_id
+WHERE mem.m_id = #{userName}
+</select>
+
+</mapper>

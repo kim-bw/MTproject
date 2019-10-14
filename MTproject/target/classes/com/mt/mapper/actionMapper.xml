@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mt.service.ActServiceImpl">
+
+<!--――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――  -->
+ <!-- place 1~8을 랜덤으로 섞고 그 중에서 10개만 뽑아서 placevo arrayList로 리턴 -->
+ <select id="aGoMission" resultType="com.mt.domain.PlaceVO">
+		select * from
+		(select * from
+		(SELECT * FROM mt_1_place
+		UNION
+		SELECT * FROM mt_2_place
+		UNION
+		SELECT * FROM mt_3_place
+		UNION
+		SELECT * FROM mt_4_place
+		UNION
+		SELECT * FROM mt_5_place
+		UNION
+		SELECT * FROM mt_6_place
+		UNION
+		SELECT * FROM mt_7_place
+		UNION
+		SELECT * FROM mt_8_place) order by DBMS_RANDOM.RANDOM)
+		<![CDATA[ WHERE ROWNUM < 10 ]]> 
+ </select> 
+
+
+
+</mapper>

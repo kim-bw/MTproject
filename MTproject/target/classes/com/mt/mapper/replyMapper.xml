@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mt.service.RepServiceImpl">
+<!--―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 글 등록/김병우  -->
+<!-- 댓글 등록하기  --><!-- replyVO -->
+<insert id="rInsert">	
+	INSERT INTO mt_${r_city}_reply
+	VALUES(#{r_city},(SELECT NVL(MAX(r_seq),1)+1 FROM mt_${r_city}_reply),
+	#{r_select},#{r_num},#{r_id},#{r_content},sysdate,#{r_root},#{r_step},sysdate)
+</insert>
+<!--―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 글 삭제/김병우-->
+<!-- 댓글 삭제하기  --><!-- replyVO -->
+<delete id="rDelete">
+	<!-- seq로 조회하여 지울 수 있음 -->
+	 DELETE mt_${r_city}_reply WHERE r_seq=#{r_seq} 
+</delete>
+<!--―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 글 수정 /김병우 -->
+<!-- 댓글 수정하기  --><!-- replyVO -->
+<update id="rUpdate">
+	<!-- seq로 조회하여 글 내용만 수정할 수 있음 -->
+	UPDATE mt_${r_city}_reply SET r_content=#{r_content}, r_updateDate=sysdate WHERE r_seq=#{r_seq}
+</update>
+<!--―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 글 보기 /김병우 -->
+<select id="rMyReply" resultType="com.mt.domain.ReplyVO">
+	<!-- 1~8게시판에서 ID를 조건으로 해서 검색 후 SELECT순으로(게시판) 정렬한 후 
+	ROWNUM으로 PVO의 정보대로 페이징을 함 -->
+	SELECT * FROM
+	(SELECT * FROM
+	(SELECT * FROM mt_1_reply
+	UNION
+	SELECT * FROM mt_2_reply
+	UNION
+	SELECT * FROM mt_3_reply
+	UNION
+	SELECT * FROM mt_4_reply
+	UNION
+	SELECT * FROM mt_5_reply
+	UNION
+	SELECT * FROM mt_6_reply
+	UNION
+	SELECT * FROM mt_7_reply
+	UNION
+	SELECT * FROM mt_8_reply )
+	WHERE r_id=#{p_id} 
+	ORDER BY r_select)
+	<!-- 
+	<![CDATA[ 
+	WHERE ROWNUM >=#{p_end} AND ROWNUM <=#{p_start}
+	]]> -->
+	
+</select>
+
+ <select id="rMyTotalRow" resultType="int">
+		SELECT count(*) FROM(
+		SELECT * FROM mt_1_reply
+		UNION
+		SELECT * FROM mt_2_reply
+		UNION
+		SELECT * FROM mt_3_reply
+		UNION
+		SELECT * FROM mt_4_reply
+		UNION
+		SELECT * FROM mt_5_reply
+		UNION
+		SELECT * FROM mt_6_reply
+		UNION
+		SELECT * FROM mt_7_reply
+		UNION
+		SELECT * FROM mt_8_reply) WHERE r_id=#{p_id}
+ </select> 
+
+<update id="rChangeRoot">
+	UPDATE mt_${r_city}_reply
+	SET r_root = r_seq
+	where r_seq = (select max(r_seq) from mt_${r_city}_reply)
+</update>
+
+
+
+<select id="rAllReply" resultType="com.mt.domain.ReplyVO">
+	<![CDATA[
+
+
+	 SELECT * FROM((SELECT ROWNUM,mt_${p_city}_reply.* FROM mt_${p_city}_reply 
+	 WHERE r_city = #{p_city} AND r_select = #{p_select} AND r_num = #{p_seq}) 
+	 ORDER BY r_root DESC,r_step ASC,r_date ASC) 
+	 WHERE ROWNUM >=#{p_end} AND ROWNUM <=#{p_start}
+
+
+	]]> 
+
+	
+	
+
+</select>
+
+ <select id="rTotalRow" resultType="int">
+ 	SELECT COUNT(*) FROM mt_${p_city}_reply where r_num =#{p_seq}
+ </select> 
+ 
+ <update id="test">
+ 	update mt_1_board
+ 	set b_id='good' where b_seq=1
+ </update>
+
+
+
+</mapper>
