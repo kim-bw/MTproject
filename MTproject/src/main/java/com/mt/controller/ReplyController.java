@@ -150,10 +150,9 @@ System.out.println(rvo);
 		
 		List<ReplyVO> myReply = new ArrayList<ReplyVO>();
 		
-		userid = (String)request.getAttribute("USERID");
+		pvo.setP_id((String)request.getAttribute("USERID"));
 
 		myReply = rs.showMyReply(pvo);
-		System.out.println(myReply);
 		
 		if(myReply!=null) {
 			mv.addObject("myReply", myReply);

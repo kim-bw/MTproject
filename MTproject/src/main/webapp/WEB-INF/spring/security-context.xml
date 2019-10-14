@@ -16,7 +16,8 @@
 		
 		
 		
-	<sec:http pattern="/reply/**" security="none"></sec:http>
+	<sec:http pattern="/test-goMission" security="none"></sec:http>
+	
 	<sec:http auto-config="true" >
 			<sec:intercept-url pattern="/security_check" access="permitAll"/>
 			<sec:intercept-url pattern="/**" access="permitAll"/>

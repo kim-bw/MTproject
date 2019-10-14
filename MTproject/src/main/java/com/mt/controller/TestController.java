@@ -55,35 +55,11 @@ public class TestController {
 		return mv;
 	}
 //――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― T1/댓글작성/김병우
-	@RequestMapping("test-showMyPage") 
-	public ModelAndView showMyPage(ModelAndView mv,HttpServletRequest request,PageVO pvo) {
-
-		pvo = SystemClass.sessionCheck(pvo, request);
-		
-		List<BoardVO> myBoard = new ArrayList<BoardVO>();
-		PageVO bod_pvo = SystemClass.countPage(bs, pvo,3);
-		myBoard = bs.showMyBoard(pvo);
-		
-		List<ReplyVO> myReply = new ArrayList<ReplyVO>();
-		PageVO rep_pvo = SystemClass.countPage(rs, pvo,4);
-		myReply = rs.showMyReply(pvo);
-		
-		System.out.println("bod_pvo :"+bod_pvo);
-		System.out.println("rep_pvo :"+rep_pvo);
-		System.out.println("보드 :"+myBoard);
-		System.out.println("댓글 :"+myReply);
-		
-		mv.setViewName("test/myPage");
-		mv.addObject("myBoard", myBoard);
-		mv.addObject("myReply", myReply);
-		return mv;
-	}
 //――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― T1/댓글작성/김병우
 	@RequestMapping("test-goMission")
 	@ResponseBody
 	public ModelAndView mission(ModelAndView mv,HttpServletRequest request,HttpServletResponse response, MemberVO mvo) {
-		System.out.println("들어옴");
-		mvo = SystemClass.sessionCheck(mvo, request);
+
 		response.setContentType("text/html;charset=UTF-8");
 		List<PlaceVO> pList = new ArrayList<PlaceVO>();
 		//Gson gson = new Gson();
