@@ -1,7 +1,5 @@
 package com.mt.util;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mt.domain.PageVO;
@@ -12,17 +10,8 @@ import lombok.Setter;
 
 public class SystemClass {
 	
-	@Autowired
-	@Qualifier("board")
-	BodService bs;
-	
-	@Autowired
-	@Qualifier("reply")
-	RepService rs;
-	
-	
 	//――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― bs-pvo : row카운팅과 페이지 셋팅
-		public static PageVO countPage(PageVO pvo, int selectNum,BodService bs,RepService rs) {
+		public static PageVO countPage(PageVO pvo, int selectNum,BodService bs, RepService rs) {
 			
 			int currentPage = 1;
 			int totalPage = 0;
@@ -73,27 +62,27 @@ public class SystemClass {
 		
 	//――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 로그아웃 : 세션 종료시킴
 
-		public static PageVO selectName(PageVO pvo) {
+	public static PageVO selectBoardName(PageVO pvo) {
 			
 			switch (pvo.getP_select()) {
-			case 1: pvo.setP_selectname("board"); break;
-			case 2: pvo.setP_selectname("food");  break;
-			case 3: pvo.setP_selectname("place"); break;
+			case 1: pvo.setP_selectname("board");break;
+			case 2: pvo.setP_selectname("food");break;
+			case 3: pvo.setP_selectname("place");break;
 			}
 			return pvo;
 		}
 	//――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 로그아웃 : 세션 종료시킴
-	public static ModelAndView selectAreaView(ModelAndView mv,PageVO pvo) {
+	public static ModelAndView selectViewName(ModelAndView mv,PageVO pvo) {
 			
 			switch (pvo.getP_select()) {
-			case 1: mv.setViewName("area/freeBoard"); break;
-			case 2: mv.setViewName("area/foodBoard"); break;
-			case 3: mv.setViewName("area/placeBoard"); break;
+			case 1: mv.setViewName("board/freeBoard"); break;
+			case 2: mv.setViewName("board/foodBoard"); break;
+			case 3: mv.setViewName("board/placeBoard"); break;
 			}
 			return mv;
 		}
 	//――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 로그아웃 : 세션 종료시킴
-	public static ModelAndView selectBoardView(ModelAndView mv,PageVO pvo) {
+	public static ModelAndView selectDetailBoard(ModelAndView mv,PageVO pvo) {
 		
 		switch (pvo.getP_select()) {
 		case 1: mv.setViewName("board/boardDetail"); break;

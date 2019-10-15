@@ -71,15 +71,5 @@ public class ViewController {
 		return mv;
 		}
 //―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――	
-	@RequestMapping("showAreaMain") 
-	public ModelAndView showAreaMain(ModelAndView mv,StyleVO svo,PageVO pvo) {
-System.out.println(pvo);
-		svo = bs.selectStyle(pvo);
-		
-		mv.addObject("svo", svo);
-		mv.setViewName("area/areaMain");
-		return mv;
-		}
-//―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――	
 
 }

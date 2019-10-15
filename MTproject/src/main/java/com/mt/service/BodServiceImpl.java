@@ -43,8 +43,8 @@ public class BodServiceImpl implements BodService {
 	}
 	
 	@Override
-	public List<ResultVO> showAllBoard(PageVO pvo) {
-		return sqlSession.selectList(namespace+"bAllBoard",pvo);
+	public List<ResultVO> list(PageVO pvo) {
+		return sqlSession.selectList(namespace+"list",pvo);
 	}
 	public boolean updateReply(ReplyVO rvo) {
 		return sqlSession.update(namespace+"updateReply",rvo)==1;
@@ -62,8 +62,8 @@ public class BodServiceImpl implements BodService {
 	}
 	
 	@Override
-	public StyleVO selectStyle(PageVO pvo) {
-		return sqlSession.selectOne(namespace+"bSelectStyle",pvo);
+	public StyleVO selectStyle(StyleVO svo) {
+		return sqlSession.selectOne(namespace+"selectStyle",svo);
 	}
 	
 	@Override

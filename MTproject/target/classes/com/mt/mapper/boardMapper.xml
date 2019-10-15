@@ -4,21 +4,24 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mt.service.BodServiceImpl">
 <insert id="insert">
+	<selectKey keyProperty="b_seq" order="AFTER" resultType="int">
+		select max(b_seq) from mt_#{b_city}_board
+	</selectKey>
 INSERT INTO	mt_${b_city}_board
 VALUES(
-	   #{b_city},(SELECT NVL(MAX(#{b_seq}),1)+1 FROM mt_${b_city}_board),
-	   #{p_title},#{b_id},sysdate,sysdate,#{b_content},#{b_cnt},
-	   #{b_adrimage}
-		)
+	   #{b_city},(SELECT NVL(MAX(b_seq),1)+1 FROM mt_${b_city}_board),
+	   #{b_select},#{b_title},#{b_id},sysdate,#{b_content},0,NVL(#{b_adrimage},'NOIMAGE'),
+	   sysdate,0)
+		
 </insert>
 
 <delete id="delete">
-DELETE mt_${b_city}_free
+DELETE mt_${b_city}_board
 WHERE b_seq=#{b_seq}
 </delete>
 
 <update id="update">
-UPDATE mt_${b_city}_free 
+UPDATE mt_${b_city}_board
 SET b_title=#{b_title}, 
 	b_updateDate=sysdate, b_content=#{b_content},b_adrimage=#{b_adrimage} 
 WHERE b_seq=#{b_seq}
@@ -32,7 +35,7 @@ FROM mt_${p_city}_${p_selectname}
 <if test="p_select==3"> WHERE l_seq=#{p_seq}</if>
 </select>
 
-<select id="bAllBoard" resultType="com.mt.domain.ResultVO">
+<select id="list" resultType="com.mt.domain.ResultVO">
 SELECT * 
 FROM(SELECT ROWNUM NUMROW,mt_${p_city}_${p_selectname}.* FROM mt_${p_city}_${p_selectname}
 <if test="p_select==1"> ORDER BY B_SEQ DESC) </if>
@@ -80,8 +83,8 @@ SELECT COUNT(*)
 FROM mt_${p_city}_${p_selectname}
 </select>
 
-<select id="bSelectStyle" resultType="com.mt.domain.StyleVO">
-	select * from mt_style where s_city=#{p_city}
+<select id="selectStyle" resultType="com.mt.domain.StyleVO">
+	select * from mt_style where s_city=#{s_city}
 </select>
 
 <update id="updateReply">

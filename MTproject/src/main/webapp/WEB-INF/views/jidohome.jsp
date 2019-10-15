@@ -54,14 +54,12 @@ $(function(){
 			</li>
 			<li>팔도
 				<ul>
-					<li><a href="showAreaMain?p_city=1">서울/경기</a></li>
-					<li><a href="showAreaMain?p_city=2">강원도</a></li>
-					<li><a href="showAreaMain?p_city=3">충청북도</a></li>
-					<li><a href="showAreaMain?p_city=4">충청남도</a></li>
-					<li><a href="showAreaMain?p_city=5">전라북도</a></li>
-					<li><a href="showAreaMain?p_city=6">전라남도</a></li>
-					<li><a href="showAreaMain?p_city=7">경상북도</a></li>
-					<li><a href="showAreaMain?p_city=8">경상남도</a></li>
+					<li><a href="/board/areaMain?s_city=1">서울/경기</a></li>
+					<li><a href="/board/areaMain?s_city=2">강원도</a></li>
+					<li><a href="/board/areaMain?s_city=3">충청도</a></li>
+					<li><a href="/board/areaMain?s_city=4">전라도</a></li>
+					<li><a href="/board/areaMain?s_city=5">경상도</a></li>
+					<li><a href="/board/areaMain?s_city=6">제주도</a></li>
 				</ul>
 			</li>
 		</ul>

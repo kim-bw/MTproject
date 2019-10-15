@@ -23,13 +23,13 @@ public interface BodService {
 
 	public List<BoardVO> showMyBoard(PageVO pvo);
 
-	public List<ResultVO> showAllBoard(PageVO pvo);
+	public List<ResultVO> list(PageVO pvo);
 
 	public int totalRow(PageVO pvo);
 
 	public ResultVO showDeatailBoard(PageVO pvo);
 
-	public StyleVO selectStyle(PageVO pvo);
+	public StyleVO selectStyle(StyleVO svo);
 
 	public int myTotalRow(PageVO pvo);
 

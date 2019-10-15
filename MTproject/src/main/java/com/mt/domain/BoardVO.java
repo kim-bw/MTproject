@@ -15,12 +15,12 @@ public class BoardVO {
 	private String b_title;		
 	private String b_id;			
 	private Date b_date;		//글쓴날짜	
-	private Date b_updateDate;
 	private String b_content;		//글내용
 	private int b_cnt;			
+	private String b_adrimage;		//이미지 주소
+	private Date b_updateDate;
 	private int b_reply; //댓글 수
 	private MultipartFile b_upimage;	//이미지파일
-	private String b_adrimage;		//이미지 주소
 	
 	
 	
