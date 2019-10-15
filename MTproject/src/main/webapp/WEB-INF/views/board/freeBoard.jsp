@@ -7,27 +7,40 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		
+		//컨트롤러에서 넘어온 result att값을 저장
 		var result = '<c:out value="${result}"/>';
 		
+		//함수 실행
 		checkModal(result);
-		
-		alert(result);
 		
 		function checkModal(result){
 			
+			//컨트롤러에서 넘어온 값이 없거나 redirect 1회성 파라미터로 새로고침했을 경우는 값이 없음
 			if(result===''){
 				return;
 			}
 			
-			
-			
+			//컨트롤러에서 넘긴 게시글 숫자가 0이상이면 html로 해당 내용을 바꿈
 			if(parseInt(result) > 0){
 				$(".modal-body").html("게시글  "+parseInt(result)+"번이 등록되었습니다.");
 			}
 			
+			//모달창 열기
 			$("#myModal").modal("show");
-		}
-	});
+	
+		} //fun end
+		
+		//해당 id버튼을 눌렀을 경우 함수실행
+		//현재 창을 바꾼다
+		$("#regBtn").on("click", function() {
+			self.location ="/board/insertForm";
+		
+		}); // onclick end
+		
+		
+		
+	}); //ready end
 
 </script>
 
@@ -42,27 +55,31 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
+                        
+                        
+                        <!-- 추가 -->
                         <div class="panel-heading">
-                            DataTables Advanced Tables
+                            Board List Page<button id="regBtn" type="button" class="btn btn-xs pull-right">Register New Board</button>
                         </div>
+                        
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>b_seq</th>
-                                        <th>b_title</th>
-                                        <th>b_id</th>
-                                        <th>b_date</th>
-                                        <th>b_content</th>
-                                        <th>b_cnt</th>
-                                        <th>b_reply</th>
+                                        <th>글 번호</th>
+                                        <th>글 제목</th>
+                                        <th>작성자</th>
+                                        <th>작성일</th>
+                                        <th>글 내용</th>
+                                        <th>조회수</th>
+                                        <th>댓글수</th>
                                     </tr>
                                 </thead>
                                 <c:forEach items="${list}" var="board">
                                 	<tr>
                                 		<td><c:out value="${board.b_seq}"/></td>
-                                		<td><c:out value="${board.b_title}"/></td>
+                                		<td><a href="/board/read?p_select=1&p_city=${board.b_city}&p_seq=${board.b_seq}">${board.b_title}</a></td>
                                 		<td><c:out value="${board.b_id}"/></td>
                                 		<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.b_date}"/></td>
                                 		<td><c:out value="${board.b_content}"/></td>
@@ -80,12 +97,12 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                            <h4 class="modal-title" id="myModalLabel">알림</h4>
                                         </div>
                                         <div class="modal-body">글 등록이 완료되었습니다.</div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                          <!--  <button type="button" class="btn btn-primary">Save changes</button> -->
                                         </div>
                                     </div>
                                     <!-- /.modal-content -->

@@ -3,22 +3,29 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mt.service.BodServiceImpl">
+
+
 <insert id="insert">
-	<selectKey keyProperty="b_seq" order="AFTER" resultType="int">
-		select max(b_seq) from mt_#{b_city}_board
+	<selectKey keyProperty="b_seq" order="BEFORE" resultType="int">
+		select max(b_seq)+1 from mt_${b_city}_board
 	</selectKey>
 INSERT INTO	mt_${b_city}_board
 VALUES(
-	   #{b_city},(SELECT NVL(MAX(b_seq),1)+1 FROM mt_${b_city}_board),
+	   #{b_city},#{b_seq},
 	   #{b_select},#{b_title},#{b_id},sysdate,#{b_content},0,NVL(#{b_adrimage},'NOIMAGE'),
 	   sysdate,0)
 		
 </insert>
 
+
+
 <delete id="delete">
 DELETE mt_${b_city}_board
 WHERE b_seq=#{b_seq}
 </delete>
+
+
+
 
 <update id="update">
 UPDATE mt_${b_city}_board
@@ -27,13 +34,21 @@ SET b_title=#{b_title},
 WHERE b_seq=#{b_seq}
 </update>
 
-<select id="bDetailBoard" resultType="com.mt.domain.ResultVO">
+
+
+
+
+<select id="read" resultType="com.mt.domain.ResultVO">
 SELECT * 
 FROM mt_${p_city}_${p_selectname}
 <if test="p_select==1"> WHERE b_seq=#{p_seq}</if>
 <if test="p_select==2"> WHERE f_seq=#{p_seq}</if>
 <if test="p_select==3"> WHERE l_seq=#{p_seq}</if>
 </select>
+
+
+
+
 
 <select id="list" resultType="com.mt.domain.ResultVO">
 SELECT * 
@@ -43,6 +58,9 @@ FROM(SELECT ROWNUM NUMROW,mt_${p_city}_${p_selectname}.* FROM mt_${p_city}_${p_s
 <if test="p_select==3"> ORDER BY L_RANK ASC) </if>
  <![CDATA[ WHERE NUMROW >= #{p_end} AND NUMROW <= #{p_start}]]> 
  </select>
+
+
+
 
 <select id="myTotalRow">
 SELECT count(*) FROM(
@@ -59,6 +77,9 @@ SELECT count(*) FROM(
 	SELECT * FROM mt_6_board) 
 WHERE b_id=#{p_id}
 </select>
+
+
+
 
 <select id="myBoard" resultType="com.mt.domain.BoardVO">
 SELECT * FROM
@@ -78,20 +99,32 @@ SELECT * FROM
 ORDER BY r_select)
 </select>
 
+
+
+
 <select id="bTotalRow" resultType="int">
 SELECT COUNT(*)
 FROM mt_${p_city}_${p_selectname}
 </select>
 
+
+
+
 <select id="selectStyle" resultType="com.mt.domain.StyleVO">
 	select * from mt_style where s_city=#{s_city}
 </select>
+
+
+
 
 <update id="updateReply">
 	update mt_${r_city}_board
 	SET b_reply=b_reply+1
 	where b_seq=#{r_num}
 </update>
+
+
+
 
 <update id="test">
 	update mt_1_board 

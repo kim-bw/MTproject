@@ -35,7 +35,7 @@ public class MTLoginSuccessHandler implements AuthenticationSuccessHandler{
 		
 		//리스트에 다음 내용이 포함되어 있다면
 		if(roleNames.contains("ROLE_ADMIN")) {
-			response.sendRedirect("/admin/admin");
+			response.sendRedirect("/board/register");
 			return;
 		}
 

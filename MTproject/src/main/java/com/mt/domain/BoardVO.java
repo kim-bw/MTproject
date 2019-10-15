@@ -12,6 +12,7 @@ public class BoardVO {
 	private int b_city;           
 	private int b_seq;
 	private int b_select;
+	private String b_selectName;
 	private String b_title;		
 	private String b_id;			
 	private Date b_date;		//글쓴날짜	

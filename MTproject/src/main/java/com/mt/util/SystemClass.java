@@ -72,7 +72,7 @@ public class SystemClass {
 			return pvo;
 		}
 	//――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 로그아웃 : 세션 종료시킴
-	public static ModelAndView selectViewName(ModelAndView mv,PageVO pvo) {
+	public static ModelAndView selectListView(ModelAndView mv,PageVO pvo) {
 			
 			switch (pvo.getP_select()) {
 			case 1: mv.setViewName("board/freeBoard"); break;
@@ -82,10 +82,10 @@ public class SystemClass {
 			return mv;
 		}
 	//――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 로그아웃 : 세션 종료시킴
-	public static ModelAndView selectDetailBoard(ModelAndView mv,PageVO pvo) {
+	public static ModelAndView selectReadView(ModelAndView mv,PageVO pvo) {
 		
 		switch (pvo.getP_select()) {
-		case 1: mv.setViewName("board/boardDetail"); break;
+		case 1: mv.setViewName("board/freeDetail"); break;
 		case 2: mv.setViewName("board/foodDetail"); break;
 		case 3: mv.setViewName("board/placeDetail"); break;
 		}

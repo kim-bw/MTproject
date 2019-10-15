@@ -5,3 +5,4 @@ import lombok.Data;
 public class ResultVO extends PlaceVO{
 
 }
+//selectBoard

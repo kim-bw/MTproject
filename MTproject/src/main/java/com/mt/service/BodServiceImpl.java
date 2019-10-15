@@ -57,8 +57,8 @@ public class BodServiceImpl implements BodService {
 	}
 	
 	@Override
-	public ResultVO showDeatailBoard(PageVO pvo) {
-		return sqlSession.selectOne(namespace+"bDetailBoard",pvo);
+	public ResultVO read(PageVO pvo) {
+		return sqlSession.selectOne(namespace+"read",pvo);
 	}
 	
 	@Override

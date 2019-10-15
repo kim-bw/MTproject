@@ -27,7 +27,7 @@ public interface BodService {
 
 	public int totalRow(PageVO pvo);
 
-	public ResultVO showDeatailBoard(PageVO pvo);
+	public ResultVO read(PageVO pvo);
 
 	public StyleVO selectStyle(StyleVO svo);
 

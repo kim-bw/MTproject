@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.annotations.SelectKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mt.domain.BoardVO;
 import com.mt.domain.PageVO;
+import com.mt.domain.ReplyVO;
 import com.mt.domain.ResultVO;
 import com.mt.domain.StyleVO;
 import com.mt.service.BodService;
@@ -79,7 +80,7 @@ public class BoardController {
 		//p_select(1~3)에 따라 쿼리문에 치환될 문자를 pvo에 셋팅
 		pvo = SystemClass.selectBoardName(pvo);
 		
-		BoardVO bvo = bs.showDeatailBoard(pvo);
+		BoardVO bvo = bs.read(pvo);
 
 		if (bvo!=null) { 
 			mv.setViewName("board/updateForm");
@@ -94,13 +95,6 @@ public class BoardController {
 //―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――	
 	@RequestMapping("/updateBoard")
 	public ModelAndView updateBoard(ModelAndView mv, BoardVO bvo) {
-		
-		//오류방지 : b_adrimage가 null이면 noimage 삽입해서 오류방지
-		if(bvo.getB_adrimage()==null) {
-			bvo.setB_adrimage("noimage");
-		}
-		
-		log.info("bvo :"+bvo);
 
 		if (bs.updateBoard(bvo)) {
 			mv.setViewName("result");
@@ -117,9 +111,11 @@ public class BoardController {
 	@RequestMapping("/selectBoard")
 	public ModelAndView selectBoard(ModelAndView mv,PageVO pvo,StyleVO svo) {
 		
-		
+		//pvo.p_select으로 pvo.selectName 선택
 		pvo = SystemClass.selectBoardName(pvo);
-		mv = SystemClass.selectViewName(mv, pvo);
+		//pvo.p_select으로 게시판 리스트 view선택
+		mv = SystemClass.selectListView(mv, pvo);
+		//페이지 계산
 		pvo = SystemClass.countPage(pvo,1,bs,rs);
 
 		List<ResultVO> list = new ArrayList<ResultVO>();
@@ -136,42 +132,43 @@ public class BoardController {
 		return mv;
 	}
 
-//―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-//	@RequestMapping("/showDetailBoard")
-//	public ModelAndView detailBoard(ModelAndView mv,PageVO pvo,HttpServletResponse response) {
-//		
-//		response.setContentType("text/html;charset=UTF-8");
-//
-//		//p_select에 따라 파라미터를 보낼 게시판을 선택해서 mv에 셋
-//		mv = SystemClass.selectBoardView(mv, pvo);
-//		
-//		//p_select에 따라 mapper에서 문자열 치환에 필요한 selectname을 선택
-//		pvo = SystemClass.selectName(pvo);
-//		
-//		//pvo의 정보에 따라 조건에 맞는 Rvo 1개 선택
-//		//Rvo는 ResultVO이며 모든 게시판의 최하 자손 => 모든 멤버변수 사용가능 =>mapper에서 resultType으로 사용가능(mapper에서 resulttype은 1개만 사용가능해서 상속한 것임:우리는 1개 mapper에서 3개를 다룸)
-//		ResultVO Rvo = bs.showDeatailBoard(pvo);
-//		
-//		//pvo의 정보에 따라 댓글개수 카운트 및 페이징 정보 세팅
-//		pvo = SystemClass.countPage(pvo,3,bs,rs);
-//		
-//		//댓글의 ArrayList를 위한 생성
-//		List<ReplyVO> list = new ArrayList<ReplyVO>();
-//		
-//		//mapper에서 해당 게시판종류-지역번호-글번호에 따른 댓글 선택하여 리스트에 저장
-//		list = rs.showAllReply(pvo);
-//		
-//		if(list!=null) {
-//			mv.addObject("list", list); //댓글 리스트
-//			mv.addObject("Rvo", Rvo); //글1개 bvo
-//			mv.addObject("pvo", pvo); //페이지 정보
-//		}else {
-//			mv.setViewName("result");
-//			mv.addObject("msg", "상세글보기 실패");
-//		}
-//		
-//		return mv;
-//	}
+	@RequestMapping("/read")
+	public ModelAndView read(ModelAndView mv,PageVO pvo,HttpServletResponse response) {
+		
+		log.info("pvo ="+pvo);
+
+		response.setContentType("text/html;charset=UTF-8");
+
+		//p_select에 따라 파라미터를 보낼 게시판을 선택해서 mv에 셋
+		
+		mv = SystemClass.selectReadView(mv, pvo);
+		
+		//p_select에 따라 mapper에서 문자열 치환에 필요한 selectname을 선택
+		pvo = SystemClass.selectBoardName(pvo);
+		
+		//pvo의 정보에 따라 조건에 맞는 Rvo 1개 선택
+		//Rvo는 ResultVO이며 모든 게시판의 최하 자손 => 모든 멤버변수 사용가능 =>mapper에서 resultType으로 사용가능(mapper에서 resulttype은 1개만 사용가능해서 상속한 것임:우리는 1개 mapper에서 3개를 다룸)
+		ResultVO Rvo = bs.read(pvo);
+		
+		//pvo의 정보에 따라 댓글개수 카운트 및 페이징 정보 세팅
+		pvo = SystemClass.countPage(pvo,3,bs,rs);
+		
+		//댓글의 ArrayList를 위한 생성
+		List<ReplyVO> list = new ArrayList<ReplyVO>();
+		
+		//mapper에서 해당 게시판종류-지역번호-글번호에 따른 댓글 선택하여 리스트에 저장
+		list = rs.showAllReply(pvo);
+		
+		if(list!=null) {
+			mv.addObject("list", list); //댓글 리스트
+			mv.addObject("Rvo", Rvo); //글1개 bvo
+			mv.addObject("pvo", pvo); //페이지 정보
+		}else {
+			mv.setViewName("/");
+		}
+		
+		return mv;
+	}
 	
 	
 	@RequestMapping("/areaMain") 
@@ -185,7 +182,7 @@ public class BoardController {
 		}
 	
 	
-	@GetMapping("/register")
-	public void register() {
+	@GetMapping("/insertForm")
+	public void insertForm() {
 	}
 }
