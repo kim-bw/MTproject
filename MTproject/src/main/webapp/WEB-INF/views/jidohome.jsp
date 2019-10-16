@@ -184,20 +184,21 @@ $(function(){
 
 	
 <div class="rside">
-<sec:authorize access="isAnonymous()">
 <div class="loginForm">
+<sec:authorize access="isAnonymous()">
 <form action="/security_check" method="post">
 	<label for="id" class="badge badge-pill badge-success">아이디</label>
 	<input type="text" id="id" name="m_id" style="width: 100px"> <br>
 	<label for="password" class="badge badge-pill badge-success">비밀번호</label>
 	<input type="password" id="password" name="m_password" style="width: 100px"><br>
 	<input type="submit" class="btn btn-primary" value="login">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
+</sec:authorize>
 </div>
- </sec:authorize>
  
 <sec:authorize access="isAuthenticated()">
-반갑습니다. <sec:authentication property="principal.mvo.m_name"/>님,<br>
+반갑습니다. <sec:authentication property="principal.mvo.m_name"/>님,<br> 
 사용자 정보가 표시됩니다.<br>
 최근 접속 날짜를 넣으면 좋겠다<br> 
 <p><sec:authentication property="principal.mvo.m_birth"/>

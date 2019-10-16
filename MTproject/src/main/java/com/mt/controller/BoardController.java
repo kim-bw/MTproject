@@ -51,7 +51,7 @@ public class BoardController {
 		bvo.setB_id((String)request.getAttribute("USERID"));
 		
 		if (bs.insert(bvo)) {
-			ra.addFlashAttribute("result",bvo.getB_seq());
+			ra.addFlashAttribute("insert",bvo.getB_seq());
 			return "redirect:/board/selectBoard?p_city="+bvo.getB_city()+"&p_select=1";
 		} else {
 			return "/";
@@ -59,19 +59,17 @@ public class BoardController {
 }
 
 
-	@RequestMapping("/delete.do")
-	public ModelAndView delete(ModelAndView mv, BoardVO bvo,HttpServletRequest request) {
+	@RequestMapping("/remove.do")
+	public String delete(RedirectAttributes ra, BoardVO bvo,HttpServletRequest request) {
 		
 		bvo.setB_id((String)request.getAttribute("USERID"));
 		
 		if (bs.delete(bvo)) { 
-			mv.setViewName("result");
-			mv.addObject("msg","게시글이 삭제되었습니다.");
+			ra.addFlashAttribute("remove", bvo.getB_seq());
+			return "redirect:/board/selectBoard?p_city="+bvo.getB_city()+"&p_select=1";
 		} else { 
-			mv.setViewName("result");
-			mv.addObject("msg","게시글이 삭제를 실패하였습니다.");
+			return "/";
 		}
-		return mv;
 	}
 
 //―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――	
@@ -95,7 +93,7 @@ public class BoardController {
 	
 //―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――	
 	@RequestMapping("/modify.do")
-	public ModelAndView modify(ModelAndView mv, BoardVO bvo) {
+	public ModelAndView update(ModelAndView mv, BoardVO bvo) {
 
 		if (bs.updateBoard(bvo)) {
 			mv.setViewName("result");
@@ -168,6 +166,13 @@ public class BoardController {
 		
 		//mapper에서 해당 게시판종류-지역번호-글번호에 따른 댓글 선택하여 리스트에 저장
 		list = rs.showAllReply(pvo);
+		
+		
+		log.info("view=>"+mv.getViewName());
+		log.info("list : "+list);
+		log.info("Rvo : "+Rvo);
+		log.info("pvo : "+pvo);
+		
 		
 		if(list!=null) {
 			mv.addObject("list", list); //댓글 리스트

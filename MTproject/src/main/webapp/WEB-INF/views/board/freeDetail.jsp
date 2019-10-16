@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <!-- header.jsp 연결하기 -->
 <%@include file="../includes/header.jsp" %>
 <script type="text/javascript">
@@ -66,9 +68,15 @@ $(document).ready(function(){
                      			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                      			<input type="hidden" name="p_city" value="${Rvo.b_city}" />
                      			<input type="hidden" name="p_select" value="1" />
-                     			
-                     			<button type="submit" data-oper="modify" class="btn btn-default">Modify</button>
-                     			<button type="submit" data-oper="list" class="btn btn-default">List</button>
+                     			<input type="hidden" name="p_seq" value="${Rvo.b_seq }" />
+							
+                     		<sec:authentication property="principal" var="user"/>
+                     		<sec:authorize access="isAuthenticated()">
+                     			<c:if test="${user.mvo.m_id eq Rvo.b_id}">
+                     				<button type="submit" data-oper="modify" class="btn btn-default">Modify / Remove</button>
+                     			</c:if>
+                     		</sec:authorize>
+                     			<button type="submit" data-city="${Rvo.b_city}" data-oper="list" class="btn btn-default">List</button>
                      			</form>
                      	</div>
                      </div>

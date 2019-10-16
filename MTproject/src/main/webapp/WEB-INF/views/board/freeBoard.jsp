@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!-- header.jsp 연결하기 -->
 <%@include file="../includes/header.jsp" %>
 
@@ -9,23 +10,27 @@
 	$(document).ready(function(){
 		
 		//컨트롤러에서 넘어온 result att값을 저장
-		var result = '<c:out value="${result}"/>';
+		var insert = '<c:out value="${insert}"/>';
+		var remove = '<c:out value="${remove}"/>';
 		
 		history.replaceState({}, null, null);
 		
 		//함수 실행
-		checkModal(result);
+		checkModal(remove,insert);
 		
-		function checkModal(result){
+		function checkModal(insert,remove){
 			
 			//컨트롤러에서 넘어온 값이 없거나 redirect 1회성 파라미터로 새로고침했을 경우는 값이 없음
-			if(result===''){
+			if(insert==='' && remove===''){
 				return;
 			}
 			
 			//컨트롤러에서 넘긴 게시글 숫자가 0이상이면 html로 해당 내용을 바꿈
-			if(parseInt(result) > 0){
-				$(".modal-body").html("게시글  "+parseInt(result)+"번이 등록되었습니다.");
+			if(parseInt(insert) > 0){
+				$(".modal-body").html("게시글  "+parseInt(insert)+"번이 등록되었습니다.");
+			}else if(parseInt(remove) > 0){
+				$(".modal-body").html("게시글  "+parseInt(remove)+"번이 삭제되었습니다.");
+				
 			}
 			
 			//모달창 열기

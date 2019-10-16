@@ -27,10 +27,10 @@ WHERE b_seq=#{b_seq}
 
 
 
-<update id="update">
+<update id="modify">
 UPDATE mt_${b_city}_board
 SET b_title=#{b_title}, 
-	b_updateDate=sysdate, b_content=#{b_content},b_adrimage=#{b_adrimage} 
+	b_updateDate=sysdate, b_content=#{b_content}
 WHERE b_seq=#{b_seq}
 </update>
 

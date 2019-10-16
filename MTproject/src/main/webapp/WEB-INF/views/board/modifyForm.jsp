@@ -8,21 +8,19 @@
 	
 	$(document).ready(function(){
 		
-		var formObj = $("form");
-		
-		alert(formObj);
+		var formObj = $('form');
 		
 		$('button').on('click',function(e){
 		
 			e.preventDefault();
 			
-			var operation = $(this).data("oper");
-			var city = $(this).data("city");
+			var operation = $(this).data('oper');
+			var city = $(this).data('city');
 			
 			console.log(operation);
 		
 			if(operation==='remove'){
-				formObj.attr("action","board/remove.do");
+				formObj.attr('action','/board/remove.do');
 			}else if(operation==='list'){
 				self.location = "/board/selectBoard?p_select=1&p_city="+city;
 				return;
@@ -69,10 +67,13 @@
                      			</div>
                      			<!-- csrf코인을 함께 보내야 403에러가 생기지 않는다. -->
                      			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                     			<input type="hidden" name="b_city" value="${Rvo.b_city}" />
+                     			
                      			<button type="submit" data-oper="modify" data-city="${Rvo.b_city}" class="btn btn-default">수정완료</button>
                      			<button type="submit" data-oper="remove" data-city="${Rvo.b_city}" class="btn btn-default">글 삭제</button>
                      			<button type="submit" data-oper="list" data-city="${Rvo.b_city}" class="btn btn-default">List</button>
-                     			</form>                     		
+                     			
+                     		</form>                     		
                      	</div>
                      </div>
                    </div>

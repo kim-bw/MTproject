@@ -29,12 +29,12 @@ public class BodServiceImpl implements BodService {
 	
 	@Override
 	public boolean delete(BoardVO bvo) {
-		return sqlSession.delete(namespace+"bDelete",bvo)==1;
+		return sqlSession.delete(namespace+"delete",bvo)==1;
 	}
 	
 	@Override
 	public boolean updateBoard(BoardVO bvo) {
-		return sqlSession.update(namespace+"bUpdate",bvo)==1;
+		return sqlSession.update(namespace+"modify",bvo)==1;
 	}
 	
 	@Override
