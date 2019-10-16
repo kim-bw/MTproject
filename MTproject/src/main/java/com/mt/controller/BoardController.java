@@ -124,6 +124,8 @@ public class BoardController {
 		svo.setS_city(pvo.getP_city());
 		svo = bs.selectStyle(svo);
 	
+		log.info("pvo == : "+pvo);
+		
 		mv.addObject("pvo", pvo); //pvo 페이지 정보
 		mv.addObject("svo", svo); //svo 스타일 정보
 		mv.addObject("list", list); //list 게시판리스트

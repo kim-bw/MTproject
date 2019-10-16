@@ -46,6 +46,19 @@
 		}); // onclick end
 		
 		
+		var actionForm = $('#actionForm');
+		
+		$('.paginate_button a').on('click',function(e){
+			
+			e.preventDefault();
+			
+			//name으로 접근할 때
+			actionForm.find('input[name="p_curpage"]').val($(this).attr("href"));
+			actionForm.submit();
+			
+		});//page end
+		
+		
 		
 	}); //ready end
 
@@ -95,8 +108,33 @@
                                 	</tr>
                                 </c:forEach>
                             </table>
-                            <!-- /.table-responsive -->
-                           
+							
+						<!-- pagination -->	
+								<div class="pull-right">
+									<ul class="pagination">
+										<!-- 이전버튼. startPage > 1이면 true -->
+										<c:if test="${pvo.p_pre}">
+											<li class="paginate_button previous"><a href="${pvo.p_startPage-1}">Previous</a></li>
+										</c:if>
+										
+										<c:forEach var="num" begin="${pvo.p_startPage}" end="${pvo.p_endPage}">
+											<li class='paginate_button ${pvo.p_curpage==num ? "active":""} '><a href="${num}">${num}</a></li>
+										</c:forEach>
+										
+										<c:if test="${pvo.p_next}">
+											<li class="paginate_button previous"><a href="${pvo.p_endPage+1 }">Next</a></li>
+										</c:if>
+			                         </ul>
+			                      </div>
+			                      <form id="actionForm" action="/board/selectBoard" method="get">
+			                      	<input type="hidden" name="p_curpage" value="${pvo.p_curpage}">
+			                      	<input type="hidden" name="p_city" value="${pvo.p_city}">
+			                      	<input type="hidden" name="p_select" value="1">
+			                      </form>
+			                      
+                            <!-- end pagination -->	
+                            
+                            
                             
                             <!-- Modal -->
                             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

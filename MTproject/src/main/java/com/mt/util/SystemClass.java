@@ -50,14 +50,29 @@ public class SystemClass {
 			//5.pvo에 전체 페이지 개수 셋
 			pvo.setP_totpage(totalPage); //=totblock
 			
-			pvo.setP_endPage( (int)(Math.ceil(pvo.getP_curpage()/10.0)*10) );
-			int realEnd = (int)(Math.ceil((pvo.getP_totrow()*1.0)/10));
-			if(pvo.getP_endPage() > realEnd) {
+			//책 내용
+			//1.페이지의 끝 번호
+			int total = pvo.getP_totrow();
+			
+			int endPage = (int)(Math.ceil(currentPage/10.0)*10);
+			pvo.setP_endPage(endPage);
+			
+			//2.페이지의 시작번호
+			int startPage = endPage-9;
+			pvo.setP_startPage(startPage);
+			
+			//10페이지 미만일 경우 대비
+			int realEnd = (int)(Math.ceil( (total*1.0) / 10) );
+			
+			if(realEnd < pvo.getP_endPage()) {
 				pvo.setP_endPage(realEnd);
 			}
+			boolean prev = startPage > 1;
+			pvo.setP_pre(prev);
 			
+			boolean next = endPage < realEnd;
+			pvo.setP_next(pvo.getP_endPage()<realEnd);
 			
-			pvo.setP_startPage(pvo.getP_endPage()-9);
 			return pvo;
 		}
 		

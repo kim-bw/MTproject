@@ -20,7 +20,7 @@ public class PageVO {
 	private int p_endPage; // totalbolck의 1번 페이지
 	private int p_start; //
 	private int p_end;
-	private boolean pre, next;
+	private boolean p_pre, p_next;
 	
 	public static final int getpOnepage() {
 		return P_ONEPAGE;
