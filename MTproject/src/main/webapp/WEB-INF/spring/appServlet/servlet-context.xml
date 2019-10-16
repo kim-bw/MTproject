@@ -66,12 +66,12 @@
 
 
 	<!-- Interceptor 설정 -->
-	<interceptors>
+<!-- 	<interceptors>
 		<interceptor>
 			<mapping path="/board/*.do" />
 			<beans:ref bean="mtAuthInterceptor" />
 		</interceptor>
-	</interceptors>
+	</interceptors> -->
 
 
 

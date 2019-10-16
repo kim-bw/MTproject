@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UrlPathHelper;
 
 import com.mt.domain.BoardVO;
 import com.mt.domain.PageVO;
@@ -43,7 +44,7 @@ public class BoardController {
 	//int로 return되는 결과값 저장용
 	public int result;
 
-//―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――	인증/로그인상태
+//―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――	글등록/로그인된 누구나
 	@RequestMapping("/insert.do")
 	public String insert(RedirectAttributes ra, BoardVO bvo,HttpServletRequest request) {
 		
@@ -93,8 +94,8 @@ public class BoardController {
 	}
 	
 //―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――	
-	@RequestMapping("/updateBoard")
-	public ModelAndView updateBoard(ModelAndView mv, BoardVO bvo) {
+	@RequestMapping("/modify.do")
+	public ModelAndView modify(ModelAndView mv, BoardVO bvo) {
 
 		if (bs.updateBoard(bvo)) {
 			mv.setViewName("result");
@@ -132,16 +133,25 @@ public class BoardController {
 		return mv;
 	}
 
-	@RequestMapping("/read")
-	public ModelAndView read(ModelAndView mv,PageVO pvo,HttpServletResponse response) {
+	@RequestMapping({"/read.do","/modify"})
+	public ModelAndView read(ModelAndView mv,PageVO pvo,HttpServletResponse response,HttpServletRequest request) {
 		
-		log.info("pvo ="+pvo);
+		UrlPathHelper urlPathHelper = new UrlPathHelper();
+		
+		String url = urlPathHelper.getOriginatingRequestUri(request);
+		
+		log.info("url : "+url);
+		
+		if(url.equals("/board/read.do")) {
+			mv = SystemClass.selectReadView(mv, pvo);
+		}else {
+			mv.setViewName("board/modifyForm");
+		}
 
 		response.setContentType("text/html;charset=UTF-8");
 
 		//p_select에 따라 파라미터를 보낼 게시판을 선택해서 mv에 셋
 		
-		mv = SystemClass.selectReadView(mv, pvo);
 		
 		//p_select에 따라 mapper에서 문자열 치환에 필요한 selectname을 선택
 		pvo = SystemClass.selectBoardName(pvo);
@@ -180,7 +190,6 @@ public class BoardController {
 		mv.setViewName("board/areaMain");
 		return mv;
 		}
-	
 	
 	@GetMapping("/insertForm")
 	public void insertForm() {

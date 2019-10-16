@@ -11,6 +11,8 @@
 		//컨트롤러에서 넘어온 result att값을 저장
 		var result = '<c:out value="${result}"/>';
 		
+		history.replaceState({}, null, null);
+		
 		//함수 실행
 		checkModal(result);
 		
@@ -79,7 +81,7 @@
                                 <c:forEach items="${list}" var="board">
                                 	<tr>
                                 		<td><c:out value="${board.b_seq}"/></td>
-                                		<td><a href="/board/read?p_select=1&p_city=${board.b_city}&p_seq=${board.b_seq}">${board.b_title}</a></td>
+                                		<td><a href="/board/read.do?p_select=1&p_city=${board.b_city}&p_seq=${board.b_seq}">${board.b_title}</a></td>
                                 		<td><c:out value="${board.b_id}"/></td>
                                 		<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.b_date}"/></td>
                                 		<td><c:out value="${board.b_content}"/></td>

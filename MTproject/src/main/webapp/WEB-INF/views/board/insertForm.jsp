@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <!-- header.jsp 연결하기 -->
 <%@include file="../includes/header.jsp" %>
 
@@ -30,7 +32,8 @@
                         		</div>
                         		
                         		<div class="form-group">
-                     				<label>작성자</label><input class="form-control" name="b_id">
+                     				<label>작성자</label><input class="form-control" name="b_id"
+                     									value='<sec:authentication property="principal.mvo.m_id"/>' readonly="readonly"/>
                      			</div>
                      			<!-- csrf코인을 함께 보내야 403에러가 생기지 않는다. -->
                      			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

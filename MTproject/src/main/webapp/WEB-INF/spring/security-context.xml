@@ -9,18 +9,17 @@
 		
 		
 	<bean id="mtAccessDeniedHandler" class="com.mt.security.MTAccessDeniedHandler"/>
-	<bean id="mtLoginSuccessHandler" class="com.mt.security.MTLoginSuccessHandler"/>
+	<!-- <bean id="mtLoginSuccessHandler" class="com.mt.security.MTLoginSuccessHandler"/> -->
 	<bean id="mtBcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	<bean id="MemServiceImpl" class="com.mt.service.MemServiceImpl"/>
 		
 		
 	
 	<sec:http use-expressions="true">
-	
+		
+		<sec:intercept-url pattern="/board/delete.do" access="isAuthenticated()"/>
 		<sec:intercept-url pattern="/board/insert.do" access="isAuthenticated()"/>
-		<sec:intercept-url pattern="/member/**" access="permitAll"/>
-		<sec:intercept-url pattern="/reply/**" access="permitAll"/>
-		<sec:intercept-url pattern="/board/**" access="permitAll"/>
+		<sec:intercept-url pattern="/board/insertForm" access="isAuthenticated()"/>
 		<sec:intercept-url pattern="/**" access="permitAll"/>
 	
 	 <!-- 기본값 폼로그인 <sec:form-login/> -->
@@ -29,10 +28,10 @@
 		login-processing-url="/security_check"
 		password-parameter="m_password"
 		username-parameter="m_id"
-		authentication-success-handler-ref="mtLoginSuccessHandler"
 		/>
 		
 		<!-- 에러 페이지만 설정할 경우 :  <sec:access-denied-handler error-page="/accessError"/> -->
+		<sec:access-denied-handler error-page="/error/denied"/>
 		<sec:logout logout-url="/customLogout" invalidate-session="true"/>
  	</sec:http>
 		

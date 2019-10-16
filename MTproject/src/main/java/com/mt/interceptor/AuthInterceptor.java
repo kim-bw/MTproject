@@ -41,7 +41,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 			log.warn("prin = Null ");
 			log.warn("Redirect.... ");
-			response.sendRedirect("/test-goal");
+			response.sendRedirect("/");
 			return false;
 			}
 	}

@@ -11,4 +11,9 @@ public class HomeController {
 		return "jidohome";
 	}
 	
+	@RequestMapping("/error/denied")
+	public void denied() {
+	}
+	
+	
 }
