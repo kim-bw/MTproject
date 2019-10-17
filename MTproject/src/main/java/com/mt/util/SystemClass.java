@@ -24,12 +24,12 @@ public class SystemClass {
 			//페이지당 10개를 가져올 것
 			// 1페이지의 경우 1* 10 = 10 = row 10 번까지 가져옴
 			//2.pvo에 시작하는 rownum 셋
-			pvo.setP_start(pvo.getP_curpage() * PageVO.getpOnepage());
+			pvo.setP_start(pvo.getP_curpage() * pvo.getAmount());
 			
 			//끝나는row번호
 			//1페이지의 경우 start=10 이므로 10 - 10 = 0
 			//row 0번부터 10번까지 선택
-			pvo.setP_end(pvo.getP_start() - PageVO.getpOnepage()-1);
+			pvo.setP_end(pvo.getP_start() - pvo.getAmount()-1);
 			
 			//num=1 이면  게시글 카운팅
 			//num=2이면 댓글 개수 카운팅
@@ -43,8 +43,8 @@ public class SystemClass {
 			case 4: pvo.setP_totrow(rs.myTotalRow(pvo));break;
 			}
 			
-			totalPage = pvo.getP_totrow() / PageVO.getpOnepage(); 
-			if(pvo.getP_totrow() % PageVO.getpOnepage() != 0) { 
+			totalPage = pvo.getP_totrow() / pvo.getAmount();
+			if(pvo.getP_totrow() % pvo.getAmount() != 0) { 
 				totalPage++; 
 			}	
 			//5.pvo에 전체 페이지 개수 셋

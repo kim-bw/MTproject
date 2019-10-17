@@ -25,18 +25,24 @@
 				return;
 			}
 			
+		$(document).ready(function(){
+			
+		
 			//컨트롤러에서 넘긴 게시글 숫자가 0이상이면 html로 해당 내용을 바꿈
 			if(parseInt(insert) > 0){
+				alert(insert);
+				alert(remove);
 				$(".modal-body").html("게시글  "+parseInt(insert)+"번이 등록되었습니다.");
 			}else if(parseInt(remove) > 0){
+				alert(insert);
+				alert(remove);
 				$(".modal-body").html("게시글  "+parseInt(remove)+"번이 삭제되었습니다.");
-				
 			}
-			
+			$(document).ready(function(){
 			//모달창 열기
 			$("#myModal").modal("show");
 	
-		} //fun end
+		}); //fun end
 		
 		//해당 id버튼을 눌렀을 경우 함수실행
 		//현재 창을 바꾼다
@@ -44,7 +50,6 @@
 			self.location ="/board/insertForm";
 		
 		}); // onclick end
-		
 		
 		var actionForm = $('#actionForm');
 		
@@ -55,11 +60,22 @@
 			//name으로 접근할 때
 			actionForm.find('input[name="p_curpage"]').val($(this).attr("href"));
 			actionForm.submit();
-			
 		});//page end
 		
-		
-		
+		//글제목을 눌러서 해당 글을 read 할때
+		$('.move').on('click',function(e){
+			
+			e.preventDefault();
+			
+			var p_seq = $(this).attr('href');
+			var p_savePage = $(this).data('page');
+			
+			actionForm.append('<input type="hidden" name="p_seq" value="'+p_seq+'">')
+			actionForm.append('<input type="hidden" name="p_savePage" value="'+p_savePage+'">')
+			actionForm.attr('action','/board/read.do');
+			actionForm.submit();
+			
+		});//move end
 	}); //ready end
 
 </script>
@@ -99,7 +115,7 @@
                                 <c:forEach items="${list}" var="board">
                                 	<tr>
                                 		<td><c:out value="${board.b_seq}"/></td>
-                                		<td><a href="/board/read.do?p_select=1&p_city=${board.b_city}&p_seq=${board.b_seq}">${board.b_title}</a></td>
+                                		<td><a class="move" data-page="${pvo.p_curpage}" href="${board.b_seq}">${board.b_title}</a></td>
                                 		<td><c:out value="${board.b_id}"/></td>
                                 		<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.b_date}"/></td>
                                 		<td><c:out value="${board.b_content}"/></td>
@@ -122,14 +138,16 @@
 										</c:forEach>
 										
 										<c:if test="${pvo.p_next}">
-											<li class="paginate_button previous"><a href="${pvo.p_endPage+1 }">Next</a></li>
+											<li class="paginate_button next"><a href="${pvo.p_endPage+1 }">Next</a></li>
 										</c:if>
 			                         </ul>
 			                      </div>
-			                      <form id="actionForm" action="/board/selectBoard" method="get">
+			                      
+			                      <form id="actionForm" action="/board/selectBoard" method="post">
 			                      	<input type="hidden" name="p_curpage" value="${pvo.p_curpage}">
 			                      	<input type="hidden" name="p_city" value="${pvo.p_city}">
 			                      	<input type="hidden" name="p_select" value="1">
+			                      	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			                      </form>
 			                      
                             <!-- end pagination -->	
@@ -144,7 +162,7 @@
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                             <h4 class="modal-title" id="myModalLabel">알림</h4>
                                         </div>
-                                        <div class="modal-body">글 등록이 완료되었습니다.</div>
+                                        <div class="modal-body">모달 내용</div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                           <!--  <button type="button" class="btn btn-primary">Save changes</button> -->

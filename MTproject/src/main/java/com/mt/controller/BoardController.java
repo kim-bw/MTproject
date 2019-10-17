@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -152,6 +155,8 @@ public class BoardController {
 
 		//p_select에 따라 파라미터를 보낼 게시판을 선택해서 mv에 셋
 		
+		log.info("input pvo==="+pvo);
+		
 		
 		//p_select에 따라 mapper에서 문자열 치환에 필요한 selectname을 선택
 		pvo = SystemClass.selectBoardName(pvo);
@@ -187,18 +192,26 @@ public class BoardController {
 		return mv;
 	}
 	
-	
-	@RequestMapping("/areaMain") 
-	public ModelAndView areaMain(ModelAndView mv,StyleVO svo) {
-		
-		svo = bs.selectStyle(svo);
-		
-		mv.addObject("svo", svo);
-		mv.setViewName("board/areaMain");
-		return mv;
-		}
-	
 	@GetMapping("/insertForm")
 	public void insertForm() {
 	}
+	
+	
+	//////////////////////////////////////////////////////////////////
+	@RequestMapping("/areaMain")
+	public ModelAndView area(ModelAndView mv, @ModelAttribute("cityNum") int cityNum) {
+		
+		StyleVO svo = bs.selectStyle(cityNum);
+		mv.addObject("svo", svo);
+		mv.setViewName("/board/areaMain");
+		return mv;
+	}
+	
+	@RequestMapping("/freeBoard")
+	public ModelAndView free(ModelAndView mv, PageVO pvo) {
+		log.info("확인  "+pvo);
+		List<BoardVO> freelist = bs.selectFree(1);
+		return mv;
+	}
+
 }

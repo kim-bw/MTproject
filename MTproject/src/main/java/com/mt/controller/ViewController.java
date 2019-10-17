@@ -61,6 +61,7 @@ public class ViewController {
 		mv.setViewName("board/insertForm");
 		return mv;
 		}
+	//<a href="#">Previous</a>
 //―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――	
 	@RequestMapping("showInsertReply") 
 	public ModelAndView showInsertReply(ModelAndView mv,ReplyVO rvo) {

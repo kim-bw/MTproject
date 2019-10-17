@@ -4,10 +4,10 @@ package com.mt.service;
 
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import com.mt.domain.BoardVO;
+import com.mt.domain.FoodVO;
 import com.mt.domain.PageVO;
+import com.mt.domain.PlaceVO;
 import com.mt.domain.ReplyVO;
 import com.mt.domain.ResultVO;
 import com.mt.domain.StyleVO;
@@ -36,6 +36,14 @@ public interface BodService {
 	public boolean updateReply(ReplyVO rvo);
 	
 	public boolean test();
-//-----------  이 아래는 test 공간입니다.---------------------------
-
+//-----------  이 아래는 병우인증 공간입니다.---------------------------
+	public StyleVO selectStyle(int cityNum);
+	
+	public List<BoardVO> selectFree(int cityNum);
+	
+	public List<FoodVO> selectFood(int cityNum);
+	
+	public List<PlaceVO> selectPlace(int cityNum);
+	
+	
 }

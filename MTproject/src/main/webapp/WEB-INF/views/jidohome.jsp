@@ -12,14 +12,9 @@
 <script src="resources/jsLib/jquery-3.2.1.min.js"></script>
 <script src="resources/jsLib/jidomapping.js"></script>
 <script src="resources/jsLib/randomplace.js"></script>
+<script src="resources/jsLib/kim.js"></script>
 <link rel="stylesheet" href="resources/jsLib/style.css" type="text/css">
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
-<script>
-$(function(){
-
-});
-	
-</script>
 
 
 </head>
@@ -52,14 +47,14 @@ $(function(){
 					<li><a href="#"> 3-4</a></li>
 				</ul>					
 			</li>
-			<li>팔도
+			<li>메뉴
 				<ul>
-					<li><a href="/board/areaMain?s_city=1">서울/경기</a></li>
-					<li><a href="/board/areaMain?s_city=2">강원도</a></li>
-					<li><a href="/board/areaMain?s_city=3">충청도</a></li>
-					<li><a href="/board/areaMain?s_city=4">전라도</a></li>
-					<li><a href="/board/areaMain?s_city=5">경상도</a></li>
-					<li><a href="/board/areaMain?s_city=6">제주도</a></li>
+					<li><a class="area" href="1">서울/경기</a></li>
+					<li><a class="area" href="2">강원도</a></li>
+					<li><a class="area" href="3">충청도</a></li>
+					<li><a class="area" href="4">전라도</a></li>
+					<li><a class="area" href="5">경상도</a></li>
+					<li><a class="area" href="6">제주도</a></li>
 				</ul>
 			</li>
 		</ul>

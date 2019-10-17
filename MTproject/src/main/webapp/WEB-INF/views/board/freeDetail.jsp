@@ -17,16 +17,16 @@ $(document).ready(function(){
 		
 		var operation = $(this).data('oper');
 		var city = $(this).data('city');
-		
+		var page = $(this).data('page');
 		
 		if(operation==='list'){
-			formObj.attr('action','/board/selectBoard?p_select=1&p_city='+city);
+			formObj.attr('action','/board/selectBoard?p_select=1&p_city='+$(this).data('city')+'&p_curpage='+$(this).data('page'));
 		}
 		
 		formObj.submit();
 			
-	})//click end
-})//end
+	});//click end
+});//end
 
 
 </script>
@@ -76,7 +76,7 @@ $(document).ready(function(){
                      				<button type="submit" data-oper="modify" class="btn btn-default">Modify / Remove</button>
                      			</c:if>
                      		</sec:authorize>
-                     			<button type="submit" data-city="${Rvo.b_city}" data-oper="list" class="btn btn-default">List</button>
+                     			<button type="submit" data-page="${pvo.p_savePage}" data-city="${Rvo.b_city}" data-oper="list" class="btn btn-default">List</button>
                      			</form>
                      	</div>
                      </div>

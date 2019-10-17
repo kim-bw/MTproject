@@ -16,13 +16,12 @@
 			
 			var operation = $(this).data('oper');
 			var city = $(this).data('city');
-			
-			console.log(operation);
+			var savePage = $(this).data('page');
 		
 			if(operation==='remove'){
 				formObj.attr('action','/board/remove.do');
 			}else if(operation==='list'){
-				self.location = "/board/selectBoard?p_select=1&p_city="+city;
+				self.location = "/board/selectBoard?p_select=1&p_city="+city+"&p_savePage="+savePage;
 				return;
 			}
 				formObj.submit();
@@ -71,7 +70,7 @@
                      			
                      			<button type="submit" data-oper="modify" data-city="${Rvo.b_city}" class="btn btn-default">수정완료</button>
                      			<button type="submit" data-oper="remove" data-city="${Rvo.b_city}" class="btn btn-default">글 삭제</button>
-                     			<button type="submit" data-oper="list" data-city="${Rvo.b_city}" class="btn btn-default">List</button>
+                     			<button type="submit" data-oper="list" data-page="${pvo.savePage}" data-city="${Rvo.b_city}" class="btn btn-default">List</button>
                      			
                      		</form>                     		
                      	</div>

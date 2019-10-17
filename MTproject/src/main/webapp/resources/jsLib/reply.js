@@ -11,12 +11,6 @@ function addReply(){
 	var num=$('#num').val();
 	var id = $('#id').val();
 	
-	alert("리플은 => "+ content);
-	alert("city => "+ city);
-	alert("select => "+ select);
-	alert("num 게시판의 원글 번호 => "+ num);
-	alert("id 는  => "+ id);
-	
 	$.ajax({
 		type: 'Post',
 		url : "/reply/insertReply",

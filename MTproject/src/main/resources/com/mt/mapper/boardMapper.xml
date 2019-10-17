@@ -110,9 +110,7 @@ FROM mt_${p_city}_${p_selectname}
 
 
 
-<select id="selectStyle" resultType="com.mt.domain.StyleVO">
-	select * from mt_style where s_city=#{s_city}
-</select>
+
 
 
 
@@ -131,5 +129,81 @@ FROM mt_${p_city}_${p_selectname}
 	set b_id='change' 
 	where b_seq=2
 </update>
+
+<select id="getListWithPaging" resultType="com.mt.domain.ResultVO">
+	<![CDATA[
+		select *
+		from(
+				select/* */
+	
+	
+	
+	
+	]]>
+	
+
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+<select id="selectStyle1" resultType="com.mt.domain.StyleVO">
+<![CDATA[
+		select * from mt_style where s_city=#{cityNum}
+]]>
+</select>
+
+
+
+<select id="selectFree" resultType="com.mt.domain.BoardVO">
+<![CDATA[
+select
+* from
+(
+	select /*+index_asc(mt_${cityNum}_board index_${cityNum}_board)*/ 
+    rownum rn, mt_${cityNum}_board.* from mt_${cityNum}_board where rownum <= ${pageNum} * #{amount}
+)
+where rn > (#{pageNum) -1) * #{amount}
+]]>
+</select>
+
+
+
+<select id="selectFood" resultType="com.mt.domain.FoodVO">
+<![CDATA[
+select
+* from
+(
+	select /*+index_asc(mt_${cityNum}_food index_${cityNum}_food)*/ 
+    rownum rn, mt_${cityNum}_food.* from mt_${cityNum}_food where rownum <= ${pageNum} * #{amount}
+)
+where rn > (#{pageNum) -1) * #{amount}
+]]>
+</select>
+
+
+
+<select id="selectPlace" resultType="com.mt.domain.PlaceVO">
+<![CDATA[
+select
+* from
+(
+	select /*+index_asc(mt_${cityNum}_place index_${cityNum}_place)*/ 
+    rownum rn, mt_${cityNum}_place.* from mt_${cityNum}_place where rownum <= ${pageNum} * #{amount}
+)
+where rn > (#{pageNum) -1) * #{amount}
+]]>
+
+</select>
+
+
 
 </mapper>
