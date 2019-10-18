@@ -2,6 +2,7 @@
 
 package com.mt.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.mt.domain.BoardVO;
@@ -39,7 +40,7 @@ public interface BodService {
 //-----------  이 아래는 병우인증 공간입니다.---------------------------
 	public StyleVO selectStyle(int cityNum);
 	
-	public List<BoardVO> selectFree(int cityNum);
+	public List<BoardVO> selectFree(HashMap mapParameter);
 	
 	public List<FoodVO> selectFood(int cityNum);
 	

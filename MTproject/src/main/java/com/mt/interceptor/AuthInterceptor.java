@@ -24,7 +24,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 		UrlPathHelper uhp = new UrlPathHelper();
 		
-		log.warn("User Login Checking.........");
+		log.warn("=======================");
+		log.warn("User의 로그인 정보를 확인합니다.");
 		
 		Principal prin = request.getUserPrincipal();
 		
@@ -32,15 +33,16 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	
 			String userid = prin.getName();
 			
-			log.warn("Authenticated User ID : "+prin.getName());
-			log.warn("Destination : "+uhp.getOriginatingRequestUri(request));
+			log.warn("인증된 User ID : "+prin.getName());
+			log.warn("진행경로  : "+uhp.getOriginatingRequestUri(request));
 			request.setAttribute("USERID", userid);
 			return true;
 
 		}else {
 		
-			log.warn("prin = Null ");
-			log.warn("Redirect.... ");
+			log.warn("==========================");
+			log.warn("로그인 세션정보가 확인되지 않습니다.");
+			log.warn("Redirect로 최초 페이지로 돌아갑니다.");
 			response.sendRedirect("/");
 			return false;
 			}

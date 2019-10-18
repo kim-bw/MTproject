@@ -1,6 +1,7 @@
 package com.mt.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +25,7 @@ import com.mt.domain.StyleVO;
 import com.mt.service.BodService;
 import com.mt.service.RepService;
 import com.mt.util.SystemClass;
+import com.sun.javafx.collections.MappingChange.Map;
 
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
@@ -198,19 +198,35 @@ public class BoardController {
 	
 	
 	//////////////////////////////////////////////////////////////////
+	
+	//스타일 인터셉터 적용중
 	@RequestMapping("/areaMain")
 	public ModelAndView area(ModelAndView mv, @ModelAttribute("cityNum") int cityNum) {
 		
-		StyleVO svo = bs.selectStyle(cityNum);
-		mv.addObject("svo", svo);
 		mv.setViewName("/board/areaMain");
 		return mv;
 	}
 	
+	//스타일 인터셉터 적용 중
+	//null체크 인터셉터 적용 중
 	@RequestMapping("/freeBoard")
 	public ModelAndView free(ModelAndView mv, PageVO pvo) {
-		log.info("확인  "+pvo);
-		List<BoardVO> freelist = bs.selectFree(1);
+		//PageVO(cityNum,cri(amount,pageNum)) 사용
+	
+		System.out.println(pvo);
+		
+		HashMap<Object,Object> mapParameter = new HashMap<Object,Object>();
+		mapParameter.put("cityNum", pvo.getCityNum());
+		mapParameter.put("cri",pvo.getCri());
+		
+		List<BoardVO> freelist = bs.selectFree(mapParameter);
+		
+		System.out.println(freelist);
+		
+		log.info("확인");
+		mv.addObject("nullCheck", freelist);
+		mv.setViewName("/board/freeBoard");
+		
 		return mv;
 	}
 

@@ -7,60 +7,57 @@
 <%@include file="../includes/header.jsp" %>
 
 <script type="text/javascript">
+	
 	$(document).ready(function(){
 		
+	
 		//컨트롤러에서 넘어온 result att값을 저장
 		var insert = '<c:out value="${insert}"/>';
 		var remove = '<c:out value="${remove}"/>';
-		
 		history.replaceState({}, null, null);
-		
 		//함수 실행
 		checkModal(remove,insert);
-		
 		function checkModal(insert,remove){
-			
 			//컨트롤러에서 넘어온 값이 없거나 redirect 1회성 파라미터로 새로고침했을 경우는 값이 없음
 			if(insert==='' && remove===''){
 				return;
 			}
-			
-		$(document).ready(function(){
-			
+	
+	$(document).ready(function(){
+		//컨트롤러에서 넘긴 게시글 숫자가 0이상이면 html로 해당 내용을 바꿈
+		if(parseInt(insert) > 0){
+			alert(insert);
+			alert(remove);
+			$(".modal-body").html("게시글  "+parseInt(insert)+"번이 등록되었습니다.");
+		}else if(parseInt(remove) > 0){
+			alert(insert);
+			alert(remove);
+			$(".modal-body").html("게시글  "+parseInt(remove)+"번이 삭제되었습니다.");
+		});
 		
-			//컨트롤러에서 넘긴 게시글 숫자가 0이상이면 html로 해당 내용을 바꿈
-			if(parseInt(insert) > 0){
-				alert(insert);
-				alert(remove);
-				$(".modal-body").html("게시글  "+parseInt(insert)+"번이 등록되었습니다.");
-			}else if(parseInt(remove) > 0){
-				alert(insert);
-				alert(remove);
-				$(".modal-body").html("게시글  "+parseInt(remove)+"번이 삭제되었습니다.");
-			}
-			$(document).ready(function(){
-			//모달창 열기
-			$("#myModal").modal("show");
+	$(document).ready(function(){
+		//모달창 열기
+		$("#myModal").modal("show");
 	
 		}); //fun end
-		
+	
 		//해당 id버튼을 눌렀을 경우 함수실행
 		//현재 창을 바꾼다
-		$("#regBtn").on("click", function() {
-			self.location ="/board/insertForm";
-		
-		}); // onclick end
+	$("#regBtn").on("click", function() {
+		self.location ="/board/insertForm";
+	
+	}); // onclick end
 		
 		var actionForm = $('#actionForm');
 		
-		$('.paginate_button a').on('click',function(e){
-			
-			e.preventDefault();
-			
-			//name으로 접근할 때
-			actionForm.find('input[name="p_curpage"]').val($(this).attr("href"));
-			actionForm.submit();
-		});//page end
+	$('.paginate_button a').on('click',function(e){
+		
+		e.preventDefault();
+		
+		//name으로 접근할 때
+		actionForm.find('input[name="p_curpage"]').val($(this).attr("href"));
+		actionForm.submit();
+	});//page end
 		
 		//글제목을 눌러서 해당 글을 read 할때
 		$('.move').on('click',function(e){
@@ -112,7 +109,7 @@
                                         <th>댓글수</th>
                                     </tr>
                                 </thead>
-                                <c:forEach items="${list}" var="board">
+                                <c:forEach items="${freelist}" var="board">
                                 	<tr>
                                 		<td><c:out value="${board.b_seq}"/></td>
                                 		<td><a class="move" data-page="${pvo.p_curpage}" href="${board.b_seq}">${board.b_title}</a></td>

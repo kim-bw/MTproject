@@ -1,5 +1,6 @@
 package com.mt.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -79,8 +80,8 @@ public class BodServiceImpl implements BodService {
 	public StyleVO selectStyle(int cityNum) {
 		return sqlSession.selectOne(namespace+"selectStyle1",cityNum);
 	}
-	public List<BoardVO> selectFree(int cityNum) {
-		return sqlSession.selectList(namespace+"selectFree",cityNum);
+	public List<BoardVO> selectFree(HashMap mapParameter) {
+		return sqlSession.selectList(namespace+"selectFree",mapParameter);
 	}
 	public List<FoodVO> selectFood(int cityNum) {
 		return sqlSession.selectList(namespace+"selectFree",cityNum);
