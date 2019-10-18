@@ -65,13 +65,8 @@
 	<beans:bean id="mtAuthInterceptor"
 		class="com.mt.interceptor.AuthInterceptor"></beans:bean>
 	
-	<!-- cityNum으로 StyleVO를 찾아줌 -->
-	<beans:bean id="mtStyleInterceptor"
-		class="com.mt.interceptor.StyleInterceptor"></beans:bean>
 	<beans:bean id="mtNullCheckInterceptor"
 		class="com.mt.interceptor.NullCheckInterceptor"></beans:bean>
-	<beans:bean id="mtPageInterceptor"
-		class="com.mt.interceptor.PageInterceptor"></beans:bean>
 
 	<!-- Interceptor 설정 -->
  	<interceptors>
@@ -87,13 +82,5 @@
 			<beans:ref bean="mtNullCheckInterceptor" />
 		</interceptor>
 	</interceptors> 
-
-<!-- 	<interceptors>
-		<interceptor>
-			<mapping path="/board/freeBoard" />
-			<beans:ref bean="" />
-		</interceptor>
-	</interceptors>  -->
-
 
 </beans:beans>

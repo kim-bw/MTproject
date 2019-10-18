@@ -29,7 +29,7 @@ public class StyleInterceptor extends HandlerInterceptorAdapter{
 		int cityNum = Integer.parseInt((String)request.getParameter("cityNum"));
 		StyleVO svo = bs.selectStyle(cityNum);
 		if(svo!=null) {
-			log.warn("성공===");
+			log.warn("Style select success SVO :"+svo);
 			request.setAttribute("svo", svo);
 			return true;
 		}else {

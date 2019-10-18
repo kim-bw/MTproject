@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.mt.domain.BoardVO;
+import com.mt.domain.Criteria;
 import com.mt.domain.FoodVO;
 import com.mt.domain.PageVO;
 import com.mt.domain.PlaceVO;
@@ -40,11 +41,11 @@ public interface BodService {
 //-----------  이 아래는 병우인증 공간입니다.---------------------------
 	public StyleVO selectStyle(int cityNum);
 	
-	public List<BoardVO> selectFree(HashMap mapParameter);
+	public List<BoardVO> selectFree(Criteria cri);
 	
-	public List<FoodVO> selectFood(int cityNum);
+	public List<FoodVO> selectFood(Criteria cri);
 	
-	public List<PlaceVO> selectPlace(int cityNum);
+	public List<PlaceVO> selectPlace(Criteria cri);
 	
 	
 }

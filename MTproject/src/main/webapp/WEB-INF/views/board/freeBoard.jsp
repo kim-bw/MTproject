@@ -33,6 +33,7 @@
 			alert(insert);
 			alert(remove);
 			$(".modal-body").html("게시글  "+parseInt(remove)+"번이 삭제되었습니다.");
+		}
 		});
 		
 	$(document).ready(function(){
@@ -45,7 +46,6 @@
 		//현재 창을 바꾼다
 	$("#regBtn").on("click", function() {
 		self.location ="/board/insertForm";
-	
 	}); // onclick end
 		
 		var actionForm = $('#actionForm');
@@ -109,7 +109,7 @@
                                         <th>댓글수</th>
                                     </tr>
                                 </thead>
-                                <c:forEach items="${freelist}" var="board">
+                                <c:forEach items="${result}" var="board">
                                 	<tr>
                                 		<td><c:out value="${board.b_seq}"/></td>
                                 		<td><a class="move" data-page="${pvo.p_curpage}" href="${board.b_seq}">${board.b_title}</a></td>
@@ -139,6 +139,7 @@
 										</c:if>
 			                         </ul>
 			                      </div>
+			                      
 			                      
 			                      <form id="actionForm" action="/board/selectBoard" method="post">
 			                      	<input type="hidden" name="p_curpage" value="${pvo.p_curpage}">

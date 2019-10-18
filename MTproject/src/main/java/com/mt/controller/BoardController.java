@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UrlPathHelper;
 
 import com.mt.domain.BoardVO;
+import com.mt.domain.Criteria;
 import com.mt.domain.PageVO;
 import com.mt.domain.ReplyVO;
 import com.mt.domain.ResultVO;
@@ -25,7 +26,6 @@ import com.mt.domain.StyleVO;
 import com.mt.service.BodService;
 import com.mt.service.RepService;
 import com.mt.util.SystemClass;
-import com.sun.javafx.collections.MappingChange.Map;
 
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
@@ -110,93 +110,93 @@ public class BoardController {
 	}
 
 //―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――	
-	@RequestMapping("/selectBoard")
-	public ModelAndView selectBoard(ModelAndView mv,PageVO pvo,StyleVO svo) {
-		
-		//pvo.p_select으로 pvo.selectName 선택
-		pvo = SystemClass.selectBoardName(pvo);
-		//pvo.p_select으로 게시판 리스트 view선택
-		mv = SystemClass.selectListView(mv, pvo);
-		//페이지 계산
-		pvo = SystemClass.countPage(pvo,1,bs,rs);
+//	@RequestMapping("/selectBoard")
+//	public ModelAndView selectBoard(ModelAndView mv,PageVO pvo,StyleVO svo) {
+//		
+//		//pvo.p_select으로 pvo.selectName 선택
+//		pvo = SystemClass.selectBoardName(pvo);
+//		//pvo.p_select으로 게시판 리스트 view선택
+//		mv = SystemClass.selectListView(mv, pvo);
+//		//페이지 계산
+//		pvo = SystemClass.countPage(pvo,1,bs,rs);
+//
+//		List<ResultVO> list = new ArrayList<ResultVO>();
+//		
+//		list = bs.list(pvo); 
+//
+//		svo.setS_city(pvo.getP_city());
+//		svo = bs.selectStyle(svo);
+//	
+//		log.info("pvo == : "+pvo);
+//		
+//		mv.addObject("pvo", pvo); //pvo 페이지 정보
+//		mv.addObject("svo", svo); //svo 스타일 정보
+//		mv.addObject("list", list); //list 게시판리스트
+//	
+//		return mv;
+//	}
 
-		List<ResultVO> list = new ArrayList<ResultVO>();
-		
-		list = bs.list(pvo); 
-
-		svo.setS_city(pvo.getP_city());
-		svo = bs.selectStyle(svo);
-	
-		log.info("pvo == : "+pvo);
-		
-		mv.addObject("pvo", pvo); //pvo 페이지 정보
-		mv.addObject("svo", svo); //svo 스타일 정보
-		mv.addObject("list", list); //list 게시판리스트
-	
-		return mv;
-	}
-
-	@RequestMapping({"/read.do","/modify"})
-	public ModelAndView read(ModelAndView mv,PageVO pvo,HttpServletResponse response,HttpServletRequest request) {
-		
-		UrlPathHelper urlPathHelper = new UrlPathHelper();
-		
-		String url = urlPathHelper.getOriginatingRequestUri(request);
-		
-		log.info("url : "+url);
-		
-		if(url.equals("/board/read.do")) {
-			mv = SystemClass.selectReadView(mv, pvo);
-		}else {
-			mv.setViewName("board/modifyForm");
-		}
-
-		response.setContentType("text/html;charset=UTF-8");
-
-		//p_select에 따라 파라미터를 보낼 게시판을 선택해서 mv에 셋
-		
-		log.info("input pvo==="+pvo);
-		
-		
-		//p_select에 따라 mapper에서 문자열 치환에 필요한 selectname을 선택
-		pvo = SystemClass.selectBoardName(pvo);
-		
-		//pvo의 정보에 따라 조건에 맞는 Rvo 1개 선택
-		//Rvo는 ResultVO이며 모든 게시판의 최하 자손 => 모든 멤버변수 사용가능 =>mapper에서 resultType으로 사용가능(mapper에서 resulttype은 1개만 사용가능해서 상속한 것임:우리는 1개 mapper에서 3개를 다룸)
-		ResultVO Rvo = bs.read(pvo);
-		
-		//pvo의 정보에 따라 댓글개수 카운트 및 페이징 정보 세팅
-		pvo = SystemClass.countPage(pvo,3,bs,rs);
-		
-		//댓글의 ArrayList를 위한 생성
-		List<ReplyVO> list = new ArrayList<ReplyVO>();
-		
-		//mapper에서 해당 게시판종류-지역번호-글번호에 따른 댓글 선택하여 리스트에 저장
-		list = rs.showAllReply(pvo);
-		
-		
-		log.info("view=>"+mv.getViewName());
-		log.info("list : "+list);
-		log.info("Rvo : "+Rvo);
-		log.info("pvo : "+pvo);
-		
-		
-		if(list!=null) {
-			mv.addObject("list", list); //댓글 리스트
-			mv.addObject("Rvo", Rvo); //글1개 bvo
-			mv.addObject("pvo", pvo); //페이지 정보
-		}else {
-			mv.setViewName("/");
-		}
-		
-		return mv;
-	}
-	
-	@GetMapping("/insertForm")
-	public void insertForm() {
-	}
-	
-	
+//	@RequestMapping({"/read.do","/modify"})
+//	public ModelAndView read(ModelAndView mv,PageVO pvo,HttpServletResponse response,HttpServletRequest request) {
+//		
+//		UrlPathHelper urlPathHelper = new UrlPathHelper();
+//		
+//		String url = urlPathHelper.getOriginatingRequestUri(request);
+//		
+//		log.info("url : "+url);
+//		
+//		if(url.equals("/board/read.do")) {
+//			mv = SystemClass.selectReadView(mv, pvo);
+//		}else {
+//			mv.setViewName("board/modifyForm");
+//		}
+//
+//		response.setContentType("text/html;charset=UTF-8");
+//
+//		//p_select에 따라 파라미터를 보낼 게시판을 선택해서 mv에 셋
+//		
+//		log.info("input pvo==="+pvo);
+//		
+//		
+//		//p_select에 따라 mapper에서 문자열 치환에 필요한 selectname을 선택
+//		pvo = SystemClass.selectBoardName(pvo);
+//		
+//		//pvo의 정보에 따라 조건에 맞는 Rvo 1개 선택
+//		//Rvo는 ResultVO이며 모든 게시판의 최하 자손 => 모든 멤버변수 사용가능 =>mapper에서 resultType으로 사용가능(mapper에서 resulttype은 1개만 사용가능해서 상속한 것임:우리는 1개 mapper에서 3개를 다룸)
+//		ResultVO Rvo = bs.read(pvo);
+//		
+//		//pvo의 정보에 따라 댓글개수 카운트 및 페이징 정보 세팅
+//		pvo = SystemClass.countPage(pvo,3,bs,rs);
+//		
+//		//댓글의 ArrayList를 위한 생성
+//		List<ReplyVO> list = new ArrayList<ReplyVO>();
+//		
+//		//mapper에서 해당 게시판종류-지역번호-글번호에 따른 댓글 선택하여 리스트에 저장
+//		list = rs.showAllReply(pvo);
+//		
+//		
+//		log.info("view=>"+mv.getViewName());
+//		log.info("list : "+list);
+//		log.info("Rvo : "+Rvo);
+//		log.info("pvo : "+pvo);
+//		
+//		
+//		if(list!=null) {
+//			mv.addObject("list", list); //댓글 리스트
+//			mv.addObject("Rvo", Rvo); //글1개 bvo
+//			mv.addObject("pvo", pvo); //페이지 정보
+//		}else {
+//			mv.setViewName("/");
+//		}
+//		
+//		return mv;
+//	}
+//	
+//	@GetMapping("/insertForm")
+//	public void insertForm() {
+//	}
+//	
+//	
 	//////////////////////////////////////////////////////////////////
 	
 	//스타일 인터셉터 적용중
@@ -210,21 +210,11 @@ public class BoardController {
 	//스타일 인터셉터 적용 중
 	//null체크 인터셉터 적용 중
 	@RequestMapping("/freeBoard")
-	public ModelAndView free(ModelAndView mv, PageVO pvo) {
+	public ModelAndView free(ModelAndView mv, Criteria cri) {
 		//PageVO(cityNum,cri(amount,pageNum)) 사용
-	
-		System.out.println(pvo);
 		
-		HashMap<Object,Object> mapParameter = new HashMap<Object,Object>();
-		mapParameter.put("cityNum", pvo.getCityNum());
-		mapParameter.put("cri",pvo.getCri());
-		
-		List<BoardVO> freelist = bs.selectFree(mapParameter);
-		
-		System.out.println(freelist);
-		
-		log.info("확인");
-		mv.addObject("nullCheck", freelist);
+		System.out.println(cri);
+		mv.addObject("result", bs.selectFree(cri));
 		mv.setViewName("/board/freeBoard");
 		
 		return mv;

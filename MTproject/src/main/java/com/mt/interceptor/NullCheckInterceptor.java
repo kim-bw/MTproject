@@ -17,8 +17,8 @@ public class NullCheckInterceptor extends HandlerInterceptorAdapter{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView mv) throws Exception {
 		
-		if(mv.getModel().get("nullCheck")!=null) {
-			log.warn("Post Interceptor Check Parameter : "+mv.getModel().get("nullCheck"));
+		if(mv.getModel().get("result")!=null) {
+			log.warn("Post Interceptor Check Parameter : "+mv.getModel().get("result"));
 		}else {
 			log.warn("해당 파라미터가 NULL 입니다.");
 			response.sendRedirect("/error/null");
