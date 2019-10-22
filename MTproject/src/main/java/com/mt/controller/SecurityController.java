@@ -42,7 +42,7 @@ public class SecurityController {
 	 * log.info("post custom logout"); }
 	 */
 	
-	@GetMapping("/customLogin")
+	@GetMapping("/member/customLogin")
 	public void customLogin() {
 		log.info("mt알림 : move custom login page");
 		//return이 없으면 받은 url을 그대로 돌려준다 url ->controller -> url.jsp 출력

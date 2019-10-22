@@ -20,8 +20,6 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-	<resources mapping="/resources/css" location="/resources/css" />
-	<resources mapping="/resources/jsLib" location="/resources/jsLib" />
 
 	
 	
@@ -67,6 +65,8 @@
 	
 	<beans:bean id="mtNullCheckInterceptor"
 		class="com.mt.interceptor.NullCheckInterceptor"></beans:bean>
+	<beans:bean id="mtStyleInterceptor"
+		class="com.mt.interceptor.StyleInterceptor"></beans:bean>	
 
 	<!-- Interceptor 설정 -->
  	<interceptors>

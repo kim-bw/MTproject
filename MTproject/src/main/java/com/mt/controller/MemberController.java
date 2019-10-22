@@ -145,5 +145,13 @@ public class MemberController {
 		      mv.setViewName("member/idCheck");
 		      return mv;
 		   } 
+	
+//00000000000000000000000000000000000000000000000000000000000000000000000000000000	
+		
+	@RequestMapping("/myPage")
+	public void myPage() {
+	}
+		
+		
 		
 }

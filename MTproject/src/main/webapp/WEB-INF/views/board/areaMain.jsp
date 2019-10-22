@@ -5,27 +5,22 @@
 <%@ page session="true" %>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <script src="/resources/jsLib/jquery-3.2.1.min.js"></script>
-
 <script type="text/javascript">
 $(document).ready(function(){
-	
+	//1. 클릭해서 게시판 넘어가기
 	$('.board').on('click',function(e){
 		e.preventDefault();
-	
-	var board = $(this).attr('href');
-	var cityNum = $(this).data('city');
-	var pageNum = 1;
-	var amount = 10;
-	var loca = '/board/'+board+'?cityNum='+cityNum+'&pageNum='+pageNum+'&amount='+amount;
-	alert(board+cityNum+pageNum+amount);
-	alert(loca);
-	
-	self.location=loca;
-	
-});//
-
+		var select = $(this).attr('href');
+		var cityNum = $(this).data('city');
+		var pageNum = 1;
+		var amount = 10;
+		var loca = '/board/selectBoard?cityNum='+cityNum+'&pageNum='+pageNum+'&amount='+amount+'&select='+select;
+		alert(loca);
+		self.location=loca;
+		alert(loca);
+	});//
 });
 </script>
 
@@ -51,9 +46,9 @@ $(document).ready(function(){
 <div class="areaimage">
 	<img src="${svo.s_image01}" class="areaimage">
 	${svo.s_name} 페이지 입니다.<br>
-	자유게시판 -><a class="board" data-city="${cityNum}" href="freeBoard">보기</a><br>
-	맛집 -><a class="board" data-city="${cityNum}" href="foodBoard">보기</a><br>
-	여행지 -><a class="board" data-city="${cityNum}" href="placeBoard">보기</a><br>
+	자유게시판 -><a class="board" data-city="${criteria.cityNum}" href="1">보기</a><br>
+	맛집 -><a class="board" data-city="${criteria.cityNum}" href="2">보기</a><br>
+	여행지 -><a class="board" data-city="${criteria.cityNum}" href="3">보기</a><br>
 </div>
 
 </body>

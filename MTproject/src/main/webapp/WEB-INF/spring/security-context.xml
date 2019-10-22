@@ -17,6 +17,7 @@
 	
 	<sec:http use-expressions="true">
 		
+		<sec:intercept-url pattern="/member/myPage" access="isAuthenticated()"/>
 		<sec:intercept-url pattern="/board/delete.do" access="isAuthenticated()"/>
 		<sec:intercept-url pattern="/board/insert.do" access="isAuthenticated()"/>
 		<sec:intercept-url pattern="/board/insertForm" access="isAuthenticated()"/>
@@ -24,7 +25,7 @@
 	
 	 <!-- 기본값 폼로그인 <sec:form-login/> -->
 		<sec:form-login 
-		login-page="/customLogin"
+		login-page="/member/customLogin"
 		login-processing-url="/security_check"
 		password-parameter="m_password"
 		username-parameter="m_id"

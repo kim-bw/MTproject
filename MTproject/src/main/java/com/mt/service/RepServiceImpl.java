@@ -33,7 +33,6 @@ public class RepServiceImpl implements RepService {
 	public void insertReply(ReplyVO rvo) {
 		ss.update("com.mt.service.BodServiceImpl."+"test");
 		ss.update(namespace+"rInsert",rvo);
-		log.info("종료");
 	}
 	
 	@Override

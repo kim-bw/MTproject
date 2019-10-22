@@ -7,27 +7,10 @@ import lombok.Data;
 public class PageVO {
 
 	private Criteria cri;
-	private int cityNum;
 	private boolean prev, next;
 	private int startPage;
 	private int endPage;
 	private int total;
-	
-	
-	private int p_city;
-	private int p_seq;
-	private int p_select;
-	private String p_name;
-	private String p_id;
-	private String p_selectname;
-	private int p_savePage;
-	private int p_curpage; //현재보고 있는 페이지
-	private int p_totrow; //전체 게시글 수
-	private int p_totpage; //전체 페이지
-	private int p_startPage; // totalbolck의 1번 페이지
-	private int p_endPage; // totalbolck의 1번 페이지
-	private int p_start; //
-	private int p_end;
 	
 	public PageVO(Criteria cri,int total) {
 		
@@ -46,7 +29,7 @@ public class PageVO {
 		//예)2페이지 = 10 - 9 = 1 : 1~10까지 나열
 		//예)1페이지 = 10 - 9 = 1 : 1~10까지 나열
 		//예)22페이지 = 30 - 9 = 21 : 21~30까지 나열
-		this.p_startPage = this.endPage - 9;
+		this.startPage = this.endPage - 9;
 		
 		//예 : 글이 11개인 경우.
 		// 11 * 1.0 = 11 / 10 = 1.1 ceil올림적용해서 2가됨. 마지막 페이지는 2가 되어야 함

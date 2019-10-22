@@ -24,7 +24,6 @@ public class StyleInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		
 		log.warn("실행===");
 		int cityNum = Integer.parseInt((String)request.getParameter("cityNum"));
 		StyleVO svo = bs.selectStyle(cityNum);

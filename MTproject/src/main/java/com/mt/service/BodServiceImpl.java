@@ -27,11 +27,16 @@ public class BodServiceImpl implements BodService {
 	public boolean insert(BoardVO bvo) {
 		return sqlSession.insert(namespace+"insert",bvo)==1;
 	}
+
+	public boolean updateReply(ReplyVO rvo) {
+		return sqlSession.update(namespace+"updateReply",rvo)==1;
+	}
 	
 	@Override
-	public boolean delete(BoardVO bvo) {
-		return sqlSession.delete(namespace+"delete",bvo)==1;
+	public boolean test() {
+		return sqlSession.update(namespace+"test")==1;
 	}
+//-----------  이 아래는 test 공간입니다.---------------------------
 	
 	@Override
 	public boolean updateBoard(BoardVO bvo) {
@@ -39,47 +44,14 @@ public class BodServiceImpl implements BodService {
 	}
 	
 	@Override
-	public List showMyBoard(PageVO pvo) {
-		return sqlSession.selectList(namespace+"bMyBoard",pvo);
+	public boolean delete(Criteria cri) {
+		return sqlSession.delete(namespace+"delete",cri)==1;
 	}
 	
-	@Override
-	public List<ResultVO> list(PageVO pvo) {
-		return sqlSession.selectList(namespace+"list",pvo);
-	}
-	public boolean updateReply(ReplyVO rvo) {
-		return sqlSession.update(namespace+"updateReply",rvo)==1;
-	}
-	
-	
-	@Override
-	public int totalRow(PageVO pvo) {
-		return sqlSession.selectOne(namespace+"bTotalRow",pvo);
-	}
-	
-	@Override
-	public ResultVO read(PageVO pvo) {
-		return sqlSession.selectOne(namespace+"read",pvo);
-	}
-	
-	@Override
-	public StyleVO selectStyle(StyleVO svo) {
-		return sqlSession.selectOne(namespace+"selectStyle",svo);
-	}
-	
-	@Override
-	public int myTotalRow(PageVO pvo) {
-		return sqlSession.selectOne(namespace+"bMyTotalRow",pvo);
-	}
-	
-	@Override
-	public boolean test() {
-		return sqlSession.update(namespace+"test")==1;
-	}
-//-----------  이 아래는 test 공간입니다.---------------------------	
 	public StyleVO selectStyle(int cityNum) {
-		return sqlSession.selectOne(namespace+"selectStyle1",cityNum);
+		return sqlSession.selectOne(namespace+"selectStyle",cityNum);
 	}
+//----------------------------------------------------------------------------------
 	public List<BoardVO> selectFree(Criteria cri) {
 		return sqlSession.selectList(namespace+"selectFree",cri);
 	}
@@ -89,7 +61,26 @@ public class BodServiceImpl implements BodService {
 	public List<PlaceVO> selectPlace(Criteria cri) {
 		return sqlSession.selectList(namespace+"selectFree",cri);
 	}
-	
-	
+//--------------------------------------------------------------------------------------------
+	public int freeTotalCount(Criteria cri) {
+		return sqlSession.selectOne(namespace+"freeTotalCount",cri);
+	}
+	public int foodTotalCount(Criteria cri) {
+		return sqlSession.selectOne(namespace+"foodTotalCount",cri);
+	}
+	public int placeTotalCount(Criteria cri) {
+		return sqlSession.selectOne(namespace+"placeTotalCount",cri);
+	}
+//--------------------------------------------------------------------------------------------
+	public BoardVO readFree(Criteria cri) {
+		return sqlSession.selectOne(namespace+"readFree",cri);
+	}
+	public FoodVO readFood(Criteria cri) {
+		return sqlSession.selectOne(namespace+"readFood",cri);
+	}
+	public PlaceVO readPlace(Criteria cri) {
+		return sqlSession.selectOne(namespace+"readPlace",cri);
+	}
+//--------------------------------------------------------------------------------------------
 
 }

@@ -19,101 +19,10 @@ VALUES(
 
 
 
-<delete id="delete">
+<delete id="remove">
 DELETE mt_${b_city}_board
 WHERE b_seq=#{b_seq}
 </delete>
-
-
-
-
-<update id="modify">
-UPDATE mt_${b_city}_board
-SET b_title=#{b_title}, 
-	b_updateDate=sysdate, b_content=#{b_content}
-WHERE b_seq=#{b_seq}
-</update>
-
-
-
-
-
-<select id="read" resultType="com.mt.domain.ResultVO">
-SELECT * 
-FROM mt_${p_city}_${p_selectname}
-<if test="p_select==1"> WHERE b_seq=#{p_seq}</if>
-<if test="p_select==2"> WHERE f_seq=#{p_seq}</if>
-<if test="p_select==3"> WHERE l_seq=#{p_seq}</if>
-</select>
-
-
-
-
-
-<select id="list" resultType="com.mt.domain.ResultVO">
-SELECT * 
-FROM(SELECT ROWNUM NUMROW,mt_${p_city}_${p_selectname}.* FROM mt_${p_city}_${p_selectname}
-<if test="p_select==1"> ORDER BY B_SEQ DESC) </if>
-<if test="p_select==2"> ORDER BY F_RANK ASC) </if>
-<if test="p_select==3"> ORDER BY L_RANK ASC) </if>
- <![CDATA[ WHERE NUMROW >= #{p_end} AND NUMROW <= #{p_start}]]> 
- </select>
-
-
-
-
-<select id="myTotalRow">
-SELECT count(*) FROM(
-		SELECT * FROM mt_1_board
-		UNION
-		SELECT * FROM mt_2_board
-		UNION
-		SELECT * FROM mt_3_board
-		UNION
-		SELECT * FROM mt_4_board
-		UNION
-		SELECT * FROM mt_5_board
-		UNION
-	SELECT * FROM mt_6_board) 
-WHERE b_id=#{p_id}
-</select>
-
-
-
-
-<select id="myBoard" resultType="com.mt.domain.BoardVO">
-SELECT * FROM
-	(SELECT * FROM
-		(SELECT * FROM mt_1_board
-		UNION
-		SELECT * FROM mt_2_board
-		UNION
-		SELECT * FROM mt_3_board
-		UNION
-		SELECT * FROM mt_4_board
-		UNION
-		SELECT * FROM mt_5_board
-		UNION
-		SELECT * FROM mt_6_board)
-	WHERE r_id=#{p_id} 
-ORDER BY r_select)
-</select>
-
-
-
-
-<select id="bTotalRow" resultType="int">
-SELECT COUNT(*)
-FROM mt_${p_city}_${p_selectname}
-</select>
-
-
-
-
-
-
-
-
 
 <update id="updateReply">
 	update mt_${r_city}_board
@@ -130,32 +39,12 @@ FROM mt_${p_city}_${p_selectname}
 	where b_seq=2
 </update>
 
-<select id="getListWithPaging" resultType="com.mt.domain.ResultVO">
-	<![CDATA[
-		select *
-		from(
-				select/* */
-	
-	
-	
-	
-	]]>
-	
-
-</select>
 
 
 
 
 
-
-
-
-
-
-
-
-<select id="selectStyle1" resultType="com.mt.domain.StyleVO">
+<select id="selectStyle" resultType="com.mt.domain.StyleVO">
 <![CDATA[
 		select * from mt_style where s_city=#{cityNum}
 ]]>
@@ -175,8 +64,6 @@ where rn > (${pageNum} -1) * ${amount}
 ]]>
 </select>
 
-
-
 <select id="selectFood" resultType="com.mt.domain.FoodVO">
 <![CDATA[
 select
@@ -189,8 +76,6 @@ where rn > (${pageNum} -1) * ${amount}
 ]]>
 </select>
 
-
-
 <select id="selectPlace" resultType="com.mt.domain.PlaceVO">
 <![CDATA[
 select
@@ -201,9 +86,44 @@ select
 )
 where rn > (${pageNum} -1) * ${amount}
 ]]>
-
 </select>
 
 
+
+<select id="freeTotalCount" resultType="int">
+	select count(*) from mt_${cityNum}_board
+</select>
+
+<select id="foodTotalCount" resultType="int">
+	select count(*) from mt_${cityNum}_food
+</select>
+
+<select id="placeTotalCount" resultType="int">
+	select count(*) from mt_${cityNum}_place
+</select>
+
+
+
+<select id="readFree" resultType="com.mt.domain.BoardVO">
+select * from mt_${cityNum}_board where b_seq=${seqNum}
+</select>
+<select id="readFood" resultType="com.mt.domain.FoodVO">
+select * from mt_${cityNum}_food where f_seq=${seqNum}
+</select>
+<select id="readPlace" resultType="com.mt.domain.PlaceVO">
+select * from mt_${cityNum}_place where l_seq=${seqNum}
+</select>
+
+<update id="modify">
+UPDATE mt_${b_city}_board
+SET b_title=#{b_title}, 
+	b_updateDate=sysdate, b_content=#{b_content}
+WHERE b_seq=#{b_seq}
+</update>
+
+<delete id="delete">
+DELETE mt_${cityNum}_board
+WHERE b_seq=#{seqNum}
+</delete>
 
 </mapper>

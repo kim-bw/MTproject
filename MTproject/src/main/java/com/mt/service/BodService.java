@@ -19,22 +19,6 @@ public interface BodService {
 
 	public boolean insert(BoardVO bvo);
 
-	public boolean delete(BoardVO bvo);
-
-	public boolean updateBoard(BoardVO vo);
-
-	public List<BoardVO> showMyBoard(PageVO pvo);
-
-	public List<ResultVO> list(PageVO pvo);
-
-	public int totalRow(PageVO pvo);
-
-	public ResultVO read(PageVO pvo);
-
-	public StyleVO selectStyle(StyleVO svo);
-
-	public int myTotalRow(PageVO pvo);
-
 	public boolean updateReply(ReplyVO rvo);
 	
 	public boolean test();
@@ -47,5 +31,20 @@ public interface BodService {
 	
 	public List<PlaceVO> selectPlace(Criteria cri);
 	
+	public int freeTotalCount(Criteria cri);
+	
+	public int foodTotalCount(Criteria cri);
+	
+	public int placeTotalCount(Criteria cri);
+	
+	public BoardVO readFree(Criteria cri);
+	
+	public FoodVO readFood(Criteria cri);
+	
+	public PlaceVO readPlace(Criteria cri);
+
+	public boolean delete(Criteria cri);
+	
+	public boolean updateBoard(BoardVO bvo);
 	
 }

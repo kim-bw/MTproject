@@ -151,7 +151,6 @@ System.out.println(rvo);
 		
 		List<ReplyVO> myReply = new ArrayList<ReplyVO>();
 		
-		pvo.setP_id((String)request.getAttribute("USERID"));
 
 		myReply = rs.showMyReply(pvo);
 		
